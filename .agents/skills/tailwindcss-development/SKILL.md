@@ -110,6 +110,7 @@ If existing pages and components support dark mode, new pages and components mus
 </div>
 ```
 
+
 ## Common Pitfalls
 
 - Using deprecated v3 utilities (bg-opacity-*, flex-shrink-*, etc.)
@@ -117,3 +118,37 @@ If existing pages and components support dark mode, new pages and components mus
 - Trying to use `tailwind.config.js` instead of CSS `@theme` directive
 - Using margins for spacing between siblings instead of gap utilities
 - Forgetting to add dark mode variants when the project uses dark mode
+
+## UI Design Color Palette
+
+Use the following color palette for the entire interface of the Jamu Madura Stock and Distribution Information System.
+
+### Brand Colors
+
+- Primary: #6B3F1D
+- Primary Dark: #3F2412
+- Secondary: #D99A22
+- Secondary Light: #F6D78B
+- Accent Green: #2F7D5C
+
+### Neutral Colors
+
+- Background: #FAF7F0
+- Surface/Card: #FFFDF8
+- Border: #E5D8C5
+- Text Primary: #2B1A10
+- Text Secondary: #7A6A5C
+
+### Usage Rules
+
+- Use Primary or Primary Dark for the sidebar and main header.
+- Use Secondary for active menu items.
+- Use Secondary for primary buttons.
+- Use Accent Green for success actions, export buttons, and positive indicators.
+- Use Background as the main page background.
+- Use Surface/Card for cards, tables, forms, and modal containers.
+- Do not use random colors outside this palette.
+- Use semantic colors from the Tailwind config if available.
+- Avoid using pure white too dominantly.
+- Avoid overly dark brown colors without proper contrast.
+- The design must feel modern, clean, warm, professional, and still reflect the traditional herbal/jamu theme.
