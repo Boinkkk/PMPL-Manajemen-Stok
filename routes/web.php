@@ -2,6 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', fn() => auth()->check()
+    ? redirect()->route('dashboard')
+    : redirect()->route('login'));
+
+require __DIR__ . '/auth.php';
+
+Route::middleware(['auth', 'cek.status'])->group(function (): void {
+    require __DIR__ . '/dashboard.php';
+    require __DIR__ . '/pengguna.php';
+    require __DIR__ . '/stok.php';
+    require __DIR__ . '/internal-api.php';
 });
