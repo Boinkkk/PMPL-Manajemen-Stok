@@ -23,9 +23,44 @@
 
                     <nav class="flex flex-wrap items-center gap-2 text-sm">
                         <a href="{{ route('dashboard') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Dashboard</a>
+                        <a href="{{ route('monitoring.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Monitoring</a>
+                        <a href="{{ route('order-distribusi.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Order Distribusi</a>
                         <a href="{{ route('stok-masuk.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Stok Masuk</a>
                         <a href="{{ route('stok-keluar.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Stok Keluar</a>
                         @auth
+                            <div class="relative" x-data="notificationBell()" x-init="init()">
+                                <button type="button" @click="open = !open" class="relative rounded-md px-3 py-2 hover:bg-jamu-primary-dark" aria-label="Notifikasi">
+                                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5" />
+                                        <path d="M10 21h4" />
+                                    </svg>
+                                    <span x-show="count > 0" x-text="count > 99 ? '99+' : count" class="absolute -right-1 -top-1 rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white"></span>
+                                </button>
+
+                                <div x-cloak x-show="open" @click.outside="open = false" class="absolute right-0 z-50 mt-2 w-80 overflow-hidden rounded-md border border-jamu-border bg-jamu-surface text-jamu-text shadow-xl">
+                                    <div class="flex items-center justify-between border-b border-jamu-border px-4 py-3">
+                                        <p class="font-semibold">Notifikasi</p>
+                                        <button type="button" @click="markAll()" class="text-xs font-semibold text-jamu-primary hover:underline">Tandai Semua Dibaca</button>
+                                    </div>
+                                    <div class="max-h-80 overflow-y-auto">
+                                        <template x-if="items.length === 0">
+                                            <p class="px-4 py-6 text-center text-sm text-jamu-muted">Tidak ada notifikasi baru.</p>
+                                        </template>
+                                        <template x-for="item in items" :key="item.id_notifikasi">
+                                            <a href="{{ route('notifikasi.index') }}" class="block border-b border-jamu-border px-4 py-3 hover:bg-jamu-bg">
+                                                <div class="flex gap-3">
+                                                    <span class="mt-1 h-2 w-2 rounded-full bg-red-600"></span>
+                                                    <div class="min-w-0">
+                                                        <p class="truncate text-sm font-semibold" x-text="item.pesan"></p>
+                                                        <p class="text-xs text-jamu-muted" x-text="`${item.produk ?? '-'} - ${item.waktu}`"></p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </template>
+                                    </div>
+                                    <a href="{{ route('notifikasi.index') }}" class="block bg-jamu-bg px-4 py-3 text-center text-sm font-semibold text-jamu-primary hover:underline">Lihat Semua Notifikasi</a>
+                                </div>
+                            </div>
                             @if (auth()->user()?->isAdministrator())
                                 <a href="{{ route('pengguna.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Pengguna</a>
                             @endif
@@ -46,5 +81,37 @@
                 {{ $slot }}
             </main>
         </div>
+        @auth
+            <script>
+                function notificationBell() {
+                    return {
+                        open: false,
+                        count: 0,
+                        items: [],
+                        init() {
+                            this.refresh();
+                            setInterval(() => this.refresh(), 60000);
+                        },
+                        async refresh() {
+                            const response = await fetch('{{ route('notifikasi.preview') }}', { headers: { 'Accept': 'application/json' } });
+                            const json = await response.json();
+                            this.count = json.data?.count ?? 0;
+                            this.items = json.data?.items ?? [];
+                        },
+                        async markAll() {
+                            await fetch('{{ route('notifikasi.mark-all-read') }}', {
+                                method: 'PATCH',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                                },
+                            });
+                            await this.refresh();
+                        },
+                    };
+                }
+            </script>
+        @endauth
     </body>
 </html>

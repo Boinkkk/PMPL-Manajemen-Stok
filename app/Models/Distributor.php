@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,6 +20,14 @@ class Distributor extends Model
     public $incrementing = false;
 
     protected $keyType = 'int';
+
+    /**
+     * Scope distributor aktif.
+     */
+    public function scopeAktif(Builder $query): Builder
+    {
+        return $query;
+    }
 
     /**
      * Get the attributes that should be cast.

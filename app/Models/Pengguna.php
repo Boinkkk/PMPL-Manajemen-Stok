@@ -162,6 +162,14 @@ class Pengguna extends Authenticatable
     }
 
     /**
+     * Periksa apakah pengguna boleh mengekspor order distribusi.
+     */
+    public function canExportOrders(): bool
+    {
+        return $this->hasAnyRole(['Administrator', 'Manajer']);
+    }
+
+    /**
      * Riwayat stok masuk yang dibuat pengguna.
      */
     public function stokMasuk(): HasMany
