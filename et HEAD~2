@@ -1,0 +1,200 @@
+[33mcommit 3cb0b7e8177d4b61fe26ae3a54471254d11add17[m
+Author: Boink <ivanroisussalam1234@gmail.com>
+Date:   Wed May 20 04:42:22 2026 +0700
+
+    Middleware Login and Stok masuk
+
+[1mdiff --git a/app/Http/Controllers/AuthController.php b/app/Http/Controllers/AuthController.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..80d94ff[m
+[1m--- /dev/null[m
+[1m+++ b/app/Http/Controllers/AuthController.php[m
+[36m@@ -0,0 +1,85 @@[m
+[32m+[m[32m<?php[m
+[32m+[m
+[32m+[m[32mnamespace App\Http\Controllers;[m
+[32m+[m
+[32m+[m[32muse App\Http\Requests\LoginRequest;[m
+[32m+[m[32muse App\Http\Requests\RegisterRequest;[m
+[32m+[m[32muse App\Models\Role;[m
+[32m+[m[32muse App\Services\AuthService;[m
+[32m+[m[32muse App\Services\PenggunaService;[m
+[32m+[m[32muse Illuminate\Contracts\View\View;[m
+[32m+[m[32muse Illuminate\Http\RedirectResponse;[m
+[32m+[m[32muse Illuminate\Http\Request;[m
+[32m+[m
+[32m+[m[32mclass AuthController extends Controller[m
+[32m+[m[32m{[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Buat controller autentikasi baru.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function __construct([m
+[32m+[m[32m        private readonly AuthService $authService,[m
+[32m+[m[32m        private readonly PenggunaService $penggunaService,[m
+[32m+[m[32m    ) {}[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Tampilkan halaman login.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function showLogin(): View|RedirectResponse[m
+[32m+[m[32m    {[m
+[32m+[m[32m        if (auth()->check()) {[m
+[32m+[m[32m            return redirect()->route('dashboard');[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        return view('auth.login');[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Tampilkan halaman register publik untuk testing.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function showRegister(): View|RedirectResponse[m
+[32m+[m[32m    {[m
+[32m+[m[32m        if (auth()->check()) {[m
+[32m+[m[32m            return redirect()->route('dashboard');[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        return view('auth.register', [[m
+[32m+[m[32m            'roles' => Role::query()->orderBy('nama_role')->get(),[m
+[32m+[m[32m        ]);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Proses login pengguna.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function login(LoginRequest $request): RedirectResponse[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $pengguna = $this->authService->login($request);[m
+[32m+[m
+[32m+[m[32m        return redirect()[m
+[32m+[m[32m            ->route($this->authService->dashboardRoute($pengguna))[m
+[32m+[m[32m            ->with('success', 'Login berhasil. Selamat datang kembali.');[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Proses register publik untuk testing.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function register(RegisterRequest $request): RedirectResponse[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $this->penggunaService->register($request);[m
+[32m+[m
+[32m+[m[32m        return redirect()[m
+[32m+[m[32m            ->route('login')[m
+[32m+[m[32m            ->with('success', 'Akun testing berhasil dibuat. Silakan login.');[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Proses logout pengguna.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function logout(Request $request): RedirectResponse[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $this->authService->logout($request);[m
+[32m+[m
+[32m+[m[32m        return redirect()[m
+[32m+[m[32m            ->route('login')[m
+[32m+[m[32m            ->with('success', 'Logout berhasil.');[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/app/Http/Controllers/DashboardController.php b/app/Http/Controllers/DashboardController.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..32741df[m
+[1m--- /dev/null[m
+[1m+++ b/app/Http/Controllers/DashboardController.php[m
+[36m@@ -0,0 +1,72 @@[m
+[32m+[m[32m<?php[m
+[32m+[m
+[32m+[m[32mnamespace App\Http\Controllers;[m
+[32m+[m
+[32m+[m[32muse App\Models\Pengguna;[m
+[32m+[m[32muse App\Services\AuthService;[m
+[32m+[m[32muse Illuminate\Contracts\View\View;[m
+[32m+[m[32muse Illuminate\Http\RedirectResponse;[m
+[32m+[m[32muse Illuminate\Http\Request;[m
+[32m+[m
+[32m+[m[32mclass DashboardController extends Controller[m
+[32m+[m[32m{[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Buat controller dashboard baru.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function __construct(private readonly AuthService $authService) {}[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Arahkan pengguna ke dashboard sesuai role.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function index(Request $request): RedirectResponse[m
+[32m+[m[32m    {[m
+[32m+[m[32m        /** @var Pengguna $pengguna */[m
+[32m+[m[32m        $pengguna = $request->user();[m
+[32m+[m
+[32m+[m[32m        return redirect()->route($this->authService->dashboardRoute($pengguna));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Tampilkan dashboard administrator.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function admin(): View[m
+[32m+[m[32m    {[m
+[32m+[m[32m        return view('dashboard.role', [[m
+[32m+[m[32m            'title' => 'Dashboard Administrator',[m
+[32m+[m[32m            'description' => 'Akses penuh untuk manajemen pengguna, stok masuk, dan stok keluar.',[m
+[32m+[m[32m        ]);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Tampilkan dashboard staf gudang.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function staf(): View[m
+[32m+[m[32m    {[m
+[32m+[m[32m        return view('dashboard.role', [[m
+[32m+[m[32m            'title' => 'Dashboard Staf Gudang',[m
+[32m+[m[32m            'description' => 'Kelola pencatatan stok masuk dan stok keluar.',[m
+[32m+[m[32m        ]);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Tampilkan dashboard manajer.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function manajer(): View[m
+[32m+[m[32m    {[m
+[32m+[m[32m        return view('dashboard.role', [[m
+[32m+[m[32m            'title' => 'Dashboard Manajer',[m
+[32m+[m[32m            'description' => 'Pantau riwayat stok dan distribusi secara read-only.',[m
+[32m+[m[32m        ]);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Tampilkan dashboard umum saat role belum dikenali.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function fallback(): View[m
+[32m+[m[32m    {[m
+[32m+[m[32m        return view('dashboard.role', [[m
+[32m+[m[32m            'title' => 'Dashboard',[m
+[32m+[m[32m            'description' => 'Role akun belum dikenali. Hubungi Administrator untuk memperbaiki hak akses akun.',[m
+[32m+[m[32m        ]);[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/app/Http/Controllers/PenggunaController.php b/app/Http/Controllers/PenggunaController.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..82221ae[m
+[1m--- /dev/null[m
+[1m+++ b/app/Http/Controllers/PenggunaController.php[m
+[36m@@ -0,0 +1,102 @@[m
+[32m+[m[32m<?php[m
+[32m+[m
+[32m+[m[32mnamespace App\Http\Controllers;[m
+[32m+[m
+[32m+[m[32muse App\Http\Requests\StorePenggunaRequest;[m
+[32m+[m[32muse App\Http\Requests\UpdatePenggunaRequest;[m
+[32m+[m[32muse App\Models\Pengguna;[m
+[32m+[m[32muse App\Models\Role;[m
+[32m+[m[32muse App\Services\PenggunaService;[m
+[32m+[m[32muse Illuminate\Contracts\View\View;[m
+[32m+[m[32muse Illuminate\Http\RedirectResponse;[m
+[32m+[m[32muse Illuminate\Http\Request;[m
+[32m+[m
+[32m+[m[32mclass PenggunaController extends Controller[m
+[32m+[m[32m{[m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Buat controller pengguna baru.[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public func
