@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
+use App\Models\Produk;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['id_satuan', 'nama_satuan', 'singkatan'])]
 class Satuan extends Model
 {
     use HasFactory;
@@ -16,9 +15,11 @@ class Satuan extends Model
 
     protected $primaryKey = 'id_satuan';
 
-    public $incrementing = false;
+    public $incrementing = true;
 
     protected $keyType = 'int';
+
+    protected $fillable = ['nama_satuan', 'singkatan'];
 
     /**
      * Get the attributes that should be cast.
