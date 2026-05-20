@@ -51,9 +51,13 @@
                             <a href="{{ route('satuan.edit', $satuan) }}" class="btn btn-sm btn-outline-primary me-2">
                                 <i class="fa-solid fa-pencil me-1"></i> Edit
                             </a>
-                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-action="{{ route('satuan.destroy', $satuan) }}" data-name="{{ $satuan->nama_satuan }}">
-                                <i class="fa-solid fa-trash me-1"></i> Hapus
-                            </button>
+                            <form action="{{ route('satuan.destroy', $satuan) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus satuan ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash me-1"></i> Hapus
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @empty
@@ -67,31 +71,6 @@
 
     <div class="mt-4 d-flex justify-content-end">
         {{ $satuans->links('pagination::bootstrap-5') }}
-    </div>
-</div>
-
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form method="POST" id="deleteForm">
-                @csrf
-                @method('DELETE')
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Yakin ingin menghapus satuan <strong class="modal-satuan-name"></strong>?</p>
-                    <p class="text-muted mb-0">Tindakan ini tidak dapat dikembalikan.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary-custom" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fa-solid fa-trash me-1"></i> Hapus
-                    </button>
-                </div>
-            </form>
-        </div>
     </div>
 </div>
 @endsection

@@ -418,24 +418,7 @@
                 });
             });
 
-            const deleteModal = document.getElementById('deleteModal');
-            if (deleteModal) {
-                deleteModal.addEventListener('show.bs.modal', function (event) {
-                    const button = event.relatedTarget;
-                    const action = button.getAttribute('data-action');
-                    const name = button.getAttribute('data-name');
-                    const form = document.getElementById('deleteForm');
-                    const satuanName = deleteModal.querySelector('.modal-satuan-name');
-
-                    if (form && action) {
-                        form.action = action;
-                    }
-
-                    if (satuanName) {
-                        satuanName.textContent = name;
-                    }
-                });
-            }
+            // Delete modal removed for satuan; per-row inline delete forms are used instead.
         });
     </script>
     @stack('scripts')
