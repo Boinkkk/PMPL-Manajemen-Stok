@@ -32,6 +32,8 @@
                         <a href="{{ route('order-distribusi.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Order Distribusi</a>
                         <a href="{{ route('stok-masuk.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Stok Masuk</a>
                         <a href="{{ route('stok-keluar.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Stok Keluar</a>
+                        <a href="{{ route('produk.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Data Produk</a>
+
                         @auth
                             <div class="relative" x-data="notificationBell()" x-init="init()">
                                 <button type="button" @click="open = !open" class="relative rounded-md px-3 py-2 hover:bg-jamu-primary-dark" aria-label="Notifikasi">
