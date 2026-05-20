@@ -9,9 +9,14 @@
             <h4 class="mb-1">Daftar Kategori</h4>
             <p class="text-muted mb-0">Kelola kategori produk Anda dengan cepat dan mudah.</p>
         </div>
-        <a href="{{ route('kategori.create') }}" class="btn btn-gold btn-sm">
-            <i class="fa-solid fa-plus me-2"></i> Tambah Kategori
-        </a>
+        <div class="module-actions">
+            <a href="{{ route('produk.index') }}" class="btn btn-back btn-sm">
+                <i class="fa-solid fa-arrow-left me-2"></i> Kembali 
+            </a>
+            <a href="{{ route('kategori.create') }}" class="btn btn-gold btn-sm">
+                <i class="fa-solid fa-plus me-2"></i> Tambah Kategori
+            </a>
+        </div>
     </div>
 
     <div class="row align-items-center mb-4">

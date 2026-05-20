@@ -9,9 +9,14 @@
             <h4 class="mb-1">Data Batch</h4>
             <p class="text-muted mb-0">Kelola batch produk dan tanggal kedaluwarsa dengan mudah.</p>
         </div>
-        <a href="{{ route('batch.create') }}" class="btn btn-gold btn-sm">
-            <i class="fa-solid fa-plus me-2"></i> Tambah Batch
-        </a>
+        <div class="module-actions">
+            <a href="{{ route('produk.index') }}" class="btn btn-back btn-sm">
+                <i class="fa-solid fa-arrow-left me-2"></i> Kembali 
+            </a>
+            <a href="{{ route('batch.create') }}" class="btn btn-gold btn-sm">
+                <i class="fa-solid fa-plus me-2"></i> Tambah Batch
+            </a>
+        </div>
     </div>
 
     <div class="row align-items-center mb-4">

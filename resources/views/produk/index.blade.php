@@ -46,6 +46,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Kode Produk</th>
                     <th scope="col">Nama Produk</th>
+                    <th scope="col">Deskripsi</th>
                     <th scope="col">Kategori</th>
                     <th scope="col">Satuan</th>
                     <th scope="col">Harga</th>
@@ -60,6 +61,7 @@
                         <td>{{ $produks->firstItem() + $index }}</td>
                         <td class="fw-semibold text-dark">{{ $produk->kode_produk }}</td>
                         <td class="text-dark">{{ $produk->nama_produk }}</td>
+                        <td class="text-muted">{{ $produk->deskripsi ?? '-' }}</td>
                         <td class="text-muted">{{ $produk->kategori?->nama_kategori ?? '-' }}</td>
                         <td class="text-muted">{{ $produk->satuan?->nama_satuan ?? '-' }}</td>
                         <td class="text-muted text-money">{{ $produk->formatted_harga }}</td>
@@ -102,7 +104,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="9" class="text-center text-muted py-4">Tidak ada produk yang ditemukan.</td>
+                        <td colspan="10" class="text-center text-muted py-4">Tidak ada produk yang ditemukan.</td>
                     </tr>
                 @endforelse
             </tbody>

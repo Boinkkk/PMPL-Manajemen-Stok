@@ -113,6 +113,7 @@
             color: #ffcb38;
             font-size: 1.25rem;
             font-weight: 800;
+            font-family: 'Poppins', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
             text-transform: uppercase;
             min-width: 0;
         }
@@ -122,6 +123,12 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            color: #ffd75a;
+            font-size: 1.34rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: 0;
+            text-shadow: 0 2px 8px rgba(45, 22, 0, 0.28);
         }
 
         .app-logo-mark {
@@ -228,7 +235,7 @@
         }
 
         .table-modern.table-product {
-            min-width: 1240px;
+            min-width: 1360px;
         }
 
         .table-modern.table-batch {
@@ -273,6 +280,74 @@
         .table-modern .text-money,
         .table-modern .stock-badge {
             white-space: nowrap;
+        }
+
+        .content-card nav[role="navigation"] {
+            width: 100%;
+        }
+
+        .content-card nav[role="navigation"] > div {
+            align-items: center !important;
+            gap: 1.75rem;
+            padding: 0.85rem 1rem;
+            border: 1px solid #eadcc8;
+            border-radius: 1rem;
+            background: #fffaf1;
+            box-shadow: 0 12px 28px rgba(63, 36, 18, 0.06);
+        }
+
+        .content-card nav[role="navigation"] > div > div:last-child {
+            margin-left: 1.25rem;
+        }
+
+        .content-card nav[role="navigation"] p {
+            margin: 0 1.35rem 0 0;
+            color: #6f5f50 !important;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .content-card .pagination {
+            gap: 0.35rem;
+            margin: 0 0 0 1.35rem;
+        }
+
+        .content-card .page-link {
+            min-width: 40px;
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eadcc8;
+            border-radius: 0.8rem !important;
+            color: #7a3d00;
+            background: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 8px 18px rgba(63, 36, 18, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .content-card .page-link:hover,
+        .content-card .page-link:focus {
+            color: #3f2412;
+            background: #fff0cf;
+            border-color: #e2b45b;
+            box-shadow: 0 10px 22px rgba(217, 154, 34, 0.16);
+            transform: translateY(-1px);
+        }
+
+        .content-card .page-item.active .page-link {
+            color: #2b1a10;
+            background: linear-gradient(135deg, #f0b536 0%, #d99a22 100%);
+            border-color: transparent;
+            box-shadow: 0 12px 24px rgba(217, 154, 34, 0.24);
+        }
+
+        .content-card .page-item.disabled .page-link {
+            color: #b6aa9b;
+            background: #f3efe8;
+            border-color: #e2d8c9;
+            box-shadow: none;
         }
 
         .form-control,
@@ -731,7 +806,7 @@
             }
 
             .table-modern.table-product {
-                min-width: 1160px;
+                min-width: 1280px;
             }
 
             .table-modern.table-batch {
@@ -741,6 +816,27 @@
             .table-modern td,
             .table-modern th {
                 padding: 0.85rem 0.75rem;
+            }
+
+            .content-card nav[role="navigation"] > div {
+                align-items: stretch !important;
+                gap: 0.9rem;
+                padding: 0.75rem;
+            }
+
+            .content-card nav[role="navigation"] > div > div:last-child {
+                margin-left: 0;
+            }
+
+            .content-card nav[role="navigation"] p {
+                margin-right: 0;
+                text-align: center;
+            }
+
+            .content-card .pagination {
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-left: 0;
             }
 
             .app-logo-mark {
