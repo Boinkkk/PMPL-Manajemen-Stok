@@ -275,6 +275,14 @@
             overflow: hidden;
         }
 
+        .modal {
+            z-index: 2000;
+        }
+
+        .modal-backdrop {
+            z-index: 1990;
+        }
+
         .modal-header,
         .modal-footer {
             border: none;
@@ -349,30 +357,34 @@
             </div>
 
             <nav class="nav flex-column sidebar-nav">
-                <a class="nav-link {{ request()->routeIs('dashboard.*') ? 'active' : '' }}" href="#">
-                    Dashboard
-                </a>
-                <a class="nav-link {{ request()->routeIs('kategori.*') ? 'active' : '' }}" href="{{ \Illuminate\Support\Facades\Route::has('kategori.index') ? route('kategori.index') : '#' }}">
-                    Kategori
-                </a>
-                <a class="nav-link {{ request()->routeIs('satuan.*') ? 'active' : '' }}" href="{{ \Illuminate\Support\Facades\Route::has('satuan.index') ? route('satuan.index') : '#' }}">
-                    Satuan
-                </a>
-                <a class="nav-link {{ request()->routeIs('produk.*') ? 'active' : '' }}" href="{{ \Illuminate\Support\Facades\Route::has('produk.index') ? route('produk.index') : '#' }}">
-                    Produk
-                </a>
-                <a class="nav-link {{ request()->routeIs('supplier.*') ? 'active' : '' }}" href="{{ route('supplier.index') }}">
-                    Supplier
-                </a>
-                <a class="nav-link" href="#">Distributor</a>
-                <a class="nav-link" href="#">Stok Masuk</a>
-                <a class="nav-link" href="#">Stok Keluar</a>
-                <a class="nav-link" href="#">Order Distribusi</a>
-                <a class="nav-link" href="#">Komunikasi Supplier</a>
-                <a class="nav-link" href="#">Monitoring</a>
-                <a class="nav-link" href="#">Laporan</a>
-                <a class="nav-link" href="#">Audit Trail</a>
-                <a class="nav-link" href="#">Retur Barang</a>
+                @hasSection('sidebar_nav')
+                    @yield('sidebar_nav')
+                @else
+                    <a class="nav-link {{ request()->routeIs('dashboard.*') ? 'active' : '' }}" href="#">
+                        Dashboard
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('kategori.*') ? 'active' : '' }}" href="{{ \Illuminate\Support\Facades\Route::has('kategori.index') ? route('kategori.index') : '#' }}">
+                        Kategori
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('satuan.*') ? 'active' : '' }}" href="{{ \Illuminate\Support\Facades\Route::has('satuan.index') ? route('satuan.index') : '#' }}">
+                        Satuan
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('produk.*') ? 'active' : '' }}" href="{{ \Illuminate\Support\Facades\Route::has('produk.index') ? route('produk.index') : '#' }}">
+                        Produk
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('supplier.*') ? 'active' : '' }}" href="{{ route('supplier.index') }}">
+                        Supplier
+                    </a>
+                    <a class="nav-link" href="#">Distributor</a>
+                    <a class="nav-link" href="#">Stok Masuk</a>
+                    <a class="nav-link" href="#">Stok Keluar</a>
+                    <a class="nav-link" href="#">Order Distribusi</a>
+                    <a class="nav-link" href="#">Komunikasi Supplier</a>
+                    <a class="nav-link" href="#">Monitoring</a>
+                    <a class="nav-link" href="#">Laporan</a>
+                    <a class="nav-link" href="#">Audit Trail</a>
+                    <a class="nav-link" href="#">Retur Barang</a>
+                @endif
             </nav>
         </aside>
 
@@ -393,7 +405,7 @@
 
                     <div class="dropdown ms-auto">
                         <button class="btn btn-outline-secondary rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Halo, Ivan (Admin)
+                            @yield('user_greeting', 'Halo, Ivan (Admin)')
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user-gear me-2"></i> Profile</a></li>

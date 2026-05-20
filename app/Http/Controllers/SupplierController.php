@@ -28,6 +28,25 @@ class SupplierController extends Controller
         return view('pages.supplier.index', compact('search', 'suppliers'));
     }
 
+    public function staffGudang(Request $request): View
+    {
+        $search = $request->string('search')->toString();
+
+        $suppliers = Supplier::query()
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where('nama_supplier', 'like', '%'.$search.'%')
+                    ->orWhere('kode_supplier', 'like', '%'.$search.'%')
+                    ->orWhere('kontak_person', 'like', '%'.$search.'%')
+                    ->orWhere('alamat', 'like', '%'.$search.'%')
+                    ->orWhere('telepon', 'like', '%'.$search.'%');
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('pages.staff-gudang.supplier.index', compact('search', 'suppliers'));
+    }
+
     public function store(Request $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
