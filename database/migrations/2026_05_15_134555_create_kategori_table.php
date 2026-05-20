@@ -16,7 +16,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_kategori')->primary();
+            $table->id('id_kategori')->primary();
             $table->string('nama_kategori', 100);
             $table->string('deskripsi', 255)->nullable();
             $table->dateTime('created_at')->useCurrent();

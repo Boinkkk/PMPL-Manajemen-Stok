@@ -16,8 +16,8 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_batch')->primary();
-            $table->bigInteger('id_produk')->nullable();
+            $table->id('id_batch')->primary();
+            $table->foreignId('id_produk')->nullable();
             $table->string('nomor_batch', 50);
             $table->date('tanggal_produksi')->nullable();
             $table->date('tanggal_expired');

@@ -17,10 +17,10 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_detail_masuk', true);
-            $table->bigInteger('id_stok_masuk')->nullable();
-            $table->bigInteger('id_produk')->nullable();
-            $table->bigInteger('id_batch')->nullable();
+            $table->id('id_detail_masuk');
+            $table->foreignId('id_stok_masuk')->nullable();
+            $table->foreignId('id_produk')->nullable();
+            $table->foreignId('id_batch')->nullable();
             $table->integer('jumlah');
             $table->decimal('harga_beli', 15, 2)->default(0);
             $table->decimal('subtotal', 15, 2)->default(0);

@@ -16,10 +16,10 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_stok_keluar')->primary();
+            $table->id('id_stok_keluar')->primary();
             $table->bigInteger('id_pengguna')->nullable();
-            $table->bigInteger('id_distributor')->nullable();
-            $table->bigInteger('id_order')->nullable();
+            $table->foreignId('id_distributor')->nullable();
+            $table->foreignId('id_order')->nullable();
             $table->string('nomor_transaksi', 30);
             $table->date('tanggal_keluar');
             $table->text('catatan')->nullable();

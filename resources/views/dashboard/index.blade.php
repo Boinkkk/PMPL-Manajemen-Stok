@@ -76,11 +76,11 @@
                         <tbody class="divide-y divide-jamu-border">
                             @foreach ($activities['stok_masuk'] as $transaksi)
                                 <tr class="hover:bg-jamu-bg">
-                                    <td class="py-3"><a href="{{ route('stok-masuk.show', $transaksi) }}" class="font-medium">{{ $transaksi->nomor_transaksi }}</a></td>
-                                    <td class="py-3">{{ $transaksi->supplier?->nama_supplier ?? '-' }}</td>
-                                    <td class="py-3">{{ $transaksi->tanggal_masuk_formatted }}</td>
-                                    <td class="py-3 text-right">{{ $transaksi->detail_stok_masuk_count }} item</td>
-                                    <td class="py-3">{{ $transaksi->pengguna?->nama_lengkap ?? '-' }}</td>
+                                    <td class="py-3"><a href="{{ route('stok-masuk.show', $transaksi['id_stok_masuk']) }}" class="font-medium">{{ $transaksi['nomor_transaksi'] }}</a></td>
+                                    <td class="py-3">{{ $transaksi['nama_supplier'] ?? '-' }}</td>
+                                    <td class="py-3">{{ \Illuminate\Support\Carbon::parse($transaksi['tanggal_masuk'])->locale('id')->translatedFormat('d F Y') }}</td>
+                                    <td class="py-3 text-right">{{ $transaksi['jumlah_item'] }} item</td>
+                                    <td class="py-3">{{ $transaksi['nama_pengguna'] ?? '-' }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -95,11 +95,11 @@
                         <tbody class="divide-y divide-jamu-border">
                             @foreach ($activities['orders'] as $order)
                                 <tr class="hover:bg-jamu-bg">
-                                    <td class="py-3"><a href="{{ route('order-distribusi.show', $order->id_order) }}" class="font-medium">{{ $order->nomor_order }}</a></td>
-                                    <td class="py-3">{{ $order->nama_distributor ?? '-' }}</td>
-                                    <td class="py-3">{{ \Illuminate\Support\Carbon::parse($order->tanggal_order)->locale('id')->translatedFormat('d F Y') }}</td>
-                                    <td class="py-3"><x-badge :status="$order->status" /></td>
-                                    <td class="py-3 text-right">Rp {{ number_format((float) $order->total_nilai, 0, ',', '.') }}</td>
+                                    <td class="py-3"><a href="{{ route('order-distribusi.show', $order['id_order']) }}" class="font-medium">{{ $order['nomor_order'] }}</a></td>
+                                    <td class="py-3">{{ $order['nama_distributor'] ?? '-' }}</td>
+                                    <td class="py-3">{{ \Illuminate\Support\Carbon::parse($order['tanggal_order'])->locale('id')->translatedFormat('d F Y') }}</td>
+                                    <td class="py-3"><x-badge :status="$order['status']" /></td>
+                                    <td class="py-3 text-right">Rp {{ number_format((float) $order['total_nilai'], 0, ',', '.') }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -114,8 +114,8 @@
                 <div class="mt-3 grid gap-2">
                     @foreach ($activities['audit'] as $audit)
                         <div class="flex justify-between gap-3 rounded-md border border-jamu-border bg-jamu-bg px-3 py-2 text-sm">
-                            <span>{{ $audit->pengguna?->nama_lengkap ?? '-' }} melakukan {{ $audit->aksi }} pada {{ $audit->modul }}</span>
-                            <span class="text-jamu-muted">{{ $audit->waktu_aksi?->locale('id')->translatedFormat('d F Y H:i') }}</span>
+                            <span>{{ $audit['nama_pengguna'] ?? '-' }} melakukan {{ $audit['aksi'] }} pada {{ $audit['modul'] }}</span>
+                            <span class="text-jamu-muted">{{ \Illuminate\Support\Carbon::parse($audit['waktu_aksi'])->locale('id')->translatedFormat('d F Y H:i') }}</span>
                         </div>
                     @endforeach
                 </div>

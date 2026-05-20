@@ -17,9 +17,9 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_produk')->primary();
-            $table->bigInteger('id_kategori')->nullable();
-            $table->bigInteger('id_satuan')->nullable();
+            $table->id('id_produk')->primary();
+            $table->foreignId('id_kategori')->nullable();
+            $table->foreignId('id_satuan')->nullable();
             $table->string('kode_produk', 30);
             $table->string('nama_produk', 150);
             $table->decimal('harga_satuan', 15, 2)->default(0);

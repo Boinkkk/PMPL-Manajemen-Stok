@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\AuditTrail;
-use App\Models\Produk;
-use App\Models\StokMasuk;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Cache;
@@ -212,13 +209,26 @@ class DashboardAnalyticsService
      */
     public function latestActivities(): array
     {
-        return Cache::remember('dashboard:latest-activities', self::CACHE_TTL, fn (): array => [
-            'stok_masuk' => StokMasuk::query()
-                ->with(['supplier', 'pengguna'])
-                ->withCount('detailStokMasuk')
-                ->latest('tanggal_masuk')
+        return Cache::remember('dashboard:latest-activities:v3', self::CACHE_TTL, fn (): array => [
+            'stok_masuk' => DB::table('stok_masuk')
+                ->leftJoin('supplier', 'supplier.id_supplier', '=', 'stok_masuk.id_supplier')
+                ->leftJoin('pengguna', 'pengguna.id_pengguna', '=', 'stok_masuk.id_pengguna')
+                ->leftJoin('detail_stok_masuk', 'detail_stok_masuk.id_stok_masuk', '=', 'stok_masuk.id_stok_masuk')
+                ->whereNull('stok_masuk.deleted_at')
+                ->selectRaw('stok_masuk.id_stok_masuk, stok_masuk.nomor_transaksi, stok_masuk.tanggal_masuk, supplier.nama_supplier, pengguna.nama_lengkap as nama_pengguna, COUNT(detail_stok_masuk.id_detail_masuk) as jumlah_item')
+                ->groupBy('stok_masuk.id_stok_masuk', 'stok_masuk.nomor_transaksi', 'stok_masuk.tanggal_masuk', 'supplier.nama_supplier', 'pengguna.nama_lengkap')
+                ->orderByDesc('stok_masuk.tanggal_masuk')
                 ->limit(5)
-                ->get(),
+                ->get()
+                ->map(fn (object $row): array => [
+                    'id_stok_masuk' => (int) $row->id_stok_masuk,
+                    'nomor_transaksi' => $row->nomor_transaksi,
+                    'tanggal_masuk' => $row->tanggal_masuk,
+                    'nama_supplier' => $row->nama_supplier,
+                    'nama_pengguna' => $row->nama_pengguna,
+                    'jumlah_item' => (int) $row->jumlah_item,
+                ])
+                ->all(),
             'orders' => DB::table('order_distribusi')
                 ->leftJoin('distributor', 'distributor.id_distributor', '=', 'order_distribusi.id_distributor')
                 ->leftJoin('detail_order', 'detail_order.id_order', '=', 'order_distribusi.id_order')
@@ -226,12 +236,29 @@ class DashboardAnalyticsService
                 ->groupBy('order_distribusi.id_order', 'order_distribusi.nomor_order', 'order_distribusi.tanggal_order', 'order_distribusi.status', 'distributor.nama_distributor')
                 ->orderByDesc('order_distribusi.tanggal_order')
                 ->limit(5)
-                ->get(),
-            'audit' => AuditTrail::query()
-                ->with('pengguna')
-                ->latest('waktu_aksi')
+                ->get()
+                ->map(fn (object $row): array => [
+                    'id_order' => (int) $row->id_order,
+                    'nomor_order' => $row->nomor_order,
+                    'tanggal_order' => $row->tanggal_order,
+                    'status' => $row->status,
+                    'nama_distributor' => $row->nama_distributor,
+                    'total_nilai' => (float) $row->total_nilai,
+                ])
+                ->all(),
+            'audit' => DB::table('audit_trail')
+                ->leftJoin('pengguna', 'pengguna.id_pengguna', '=', 'audit_trail.id_pengguna')
+                ->selectRaw('audit_trail.aksi, audit_trail.modul, audit_trail.waktu_aksi, pengguna.nama_lengkap as nama_pengguna')
+                ->orderByDesc('audit_trail.waktu_aksi')
                 ->limit(5)
-                ->get(),
+                ->get()
+                ->map(fn (object $row): array => [
+                    'aksi' => $row->aksi,
+                    'modul' => $row->modul,
+                    'waktu_aksi' => $row->waktu_aksi,
+                    'nama_pengguna' => $row->nama_pengguna,
+                ])
+                ->all(),
         ]);
     }
 

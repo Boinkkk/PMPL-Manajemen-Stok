@@ -40,6 +40,8 @@ class Produk extends Model
         ];
     }
 
+    protected $fillable = ['id_kategori', 'id_satuan', 'kode_produk', 'nama_produk', 'harga_satuan', 'stok_terkini', 'stok_minimum', 'deskripsi'];
+
     public function kategori(): BelongsTo
     {
         return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
@@ -73,5 +75,30 @@ class Produk extends Model
     public function notifikasi(): HasMany
     {
         return $this->hasMany(Notifikasi::class, 'id_produk', 'id_produk');
+    }
+
+    public static function generateKode(): string
+    {
+        $last = self::selectRaw('MAX(CAST(SUBSTRING(kode_produk, 5) AS UNSIGNED)) as max_number')->first();
+        $num = ($last && $last->max_number) ? intval($last->max_number) + 1 : 1;
+
+        return sprintf('PRD-%03d', $num);
+    }
+
+    public function getFormattedHargaAttribute(): string
+    {
+        return 'Rp '.number_format($this->harga_satuan, 0, ',', '.');
+    }
+
+    public function getStockStatusAttribute(): string
+    {
+        if ($this->stok_terkini == 0) {
+            return 'out';
+        }
+        if ($this->stok_terkini <= $this->stok_minimum) {
+            return 'low';
+        }
+
+        return 'available';
     }
 }
