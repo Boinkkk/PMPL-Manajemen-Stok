@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,17 +19,7 @@ class Distributor extends Model
 
     protected $primaryKey = 'id_distributor';
 
-    public $incrementing = false;
-
     protected $keyType = 'int';
-
-    /**
-     * Scope distributor aktif.
-     */
-    public function scopeAktif(Builder $query): Builder
-    {
-        return $query;
-    }
 
     /**
      * Get the attributes that should be cast.
@@ -51,5 +43,35 @@ class Distributor extends Model
     public function stokKeluar(): HasMany
     {
         return $this->hasMany(StokKeluar::class, 'id_distributor', 'id_distributor');
+    }
+
+    /**
+     * Format tanggal dibuat untuk tampilan Bahasa Indonesia.
+     *
+     * @return Attribute<string|null, never>
+     */
+    protected function dibuatPadaFormatted(): Attribute
+    {
+        return Attribute::get(
+            fn (): ?string => $this->created_at?->locale('id')->translatedFormat('d F Y H:i'),
+        );
+    }
+
+    /**
+     * Cari distributor berdasarkan identitas utama.
+     */
+    #[Scope]
+    protected function search(Builder $query, ?string $keyword): void
+    {
+        $query->when($keyword, function (Builder $query, string $keyword): void {
+            $query->where(function (Builder $query) use ($keyword): void {
+                $query
+                    ->where('nama_distributor', 'like', "%{$keyword}%")
+                    ->orWhere('kode_distributor', 'like', "%{$keyword}%")
+                    ->orWhere('kontak_person', 'like', "%{$keyword}%")
+                    ->orWhere('email', 'like', "%{$keyword}%")
+                    ->orWhere('telepon', 'like', "%{$keyword}%");
+            });
+        });
     }
 }
