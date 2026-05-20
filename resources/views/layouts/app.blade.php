@@ -183,6 +183,25 @@
             box-shadow: 0 10px 30px rgba(44, 62, 80, 0.04);
         }
 
+        .product-page-header {
+            display: grid;
+            grid-template-columns: minmax(240px, 1fr) auto;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 1.15rem 1.25rem;
+        }
+
+        .product-page-header .header-copy h4 {
+            color: #2b1a10;
+            font-size: 1.55rem;
+            font-weight: 800;
+        }
+
+        .product-page-header .header-copy p {
+            max-width: 440px;
+            line-height: 1.45;
+        }
+
         .search-input {
             border-radius: 50px;
             padding-left: 3.4rem;
@@ -209,7 +228,11 @@
         }
 
         .table-modern.table-product {
-            min-width: 1120px;
+            min-width: 1240px;
+        }
+
+        .table-modern.table-batch {
+            min-width: 1080px;
         }
 
         .table-modern thead th {
@@ -309,6 +332,61 @@
         .btn-back:focus {
             color: #fff;
             background: linear-gradient(135deg, #7a4a24 0%, #4c2c16 100%);
+        }
+
+        .module-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            padding: 0.45rem;
+            border: 1px solid #eadcc8;
+            border-radius: 1rem;
+            background: #fff8ec;
+            box-shadow: 0 12px 28px rgba(63, 36, 18, 0.06);
+        }
+
+        .module-actions .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 142px;
+            min-height: 44px;
+            box-shadow: none;
+        }
+
+        .btn-manage {
+            color: #fff;
+            background: #a9343a;
+            border: none;
+            border-radius: 0.72rem;
+            padding: 0.68rem 0.95rem;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .btn-manage:hover,
+        .btn-manage:focus {
+            color: #fff;
+            background: #90282d;
+        }
+
+        .module-actions .btn-gold {
+            min-width: 170px;
+            border-radius: 0.72rem;
+            padding-block: 0.68rem;
+        }
+
+        @media (max-width: 1199.98px) {
+            .product-page-header {
+                grid-template-columns: 1fr;
+            }
+
+            .module-actions {
+                justify-content: flex-start;
+                width: 100%;
+            }
         }
 
         .table-action-cell,
@@ -623,6 +701,18 @@
                 justify-content: center;
             }
 
+            .module-actions {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.5rem;
+                padding: 0.5rem;
+            }
+
+            .module-actions .btn {
+                min-width: 0;
+            }
+
             .delete-modal .modal-dialog {
                 margin-inline: 0.75rem;
             }
@@ -641,7 +731,11 @@
             }
 
             .table-modern.table-product {
-                min-width: 1040px;
+                min-width: 1160px;
+            }
+
+            .table-modern.table-batch {
+                min-width: 980px;
             }
 
             .table-modern td,
@@ -678,14 +772,8 @@
             </div>
 
             <nav class="nav flex-column sidebar-nav">
-                <a class="nav-link {{ request()->routeIs('kategori.*') ? 'active' : '' }}" href="{{ route('kategori.index') }}">
-                    Kategori
-                </a>
-                <a class="nav-link {{ request()->routeIs('satuan.*') ? 'active' : '' }}" href="{{ route('satuan.index') }}">
-                    Satuan
-                </a>
                 <a class="nav-link {{ request()->routeIs('produk.*') ? 'active' : '' }}" href="{{ route('produk.index') }}">
-                    Produk
+                    <i class="fa-solid fa-capsules me-2"></i> Data Produk
                 </a>
             </nav>
         </aside>

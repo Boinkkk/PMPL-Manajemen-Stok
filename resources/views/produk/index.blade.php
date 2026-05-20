@@ -4,14 +4,25 @@
 
 @section('content')
 <div class="content-card p-4 mb-4">
-    <div class="content-header d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
-        <div>
+    <div class="content-header product-page-header">
+        <div class="header-copy">
             <h4 class="mb-1">Data Produk</h4>
             <p class="text-muted mb-0">Kelola daftar produk dengan cepat dan mudah.</p>
         </div>
-        <a href="{{ route('produk.create') }}" class="btn btn-gold btn-sm">
-            <i class="fa-solid fa-plus me-2"></i> Tambah Produk
-        </a>
+        <div class="module-actions">
+            <a href="{{ route('satuan.index') }}" class="btn btn-manage btn-sm">
+                <i class="fa-solid fa-box-archive me-2"></i> Kelola Satuan
+            </a>
+            <a href="{{ route('batch.index') }}" class="btn btn-manage btn-sm">
+                <i class="fa-solid fa-box me-2"></i> Kelola Batch
+            </a>
+            <a href="{{ route('kategori.index') }}" class="btn btn-manage btn-sm">
+                <i class="fa-solid fa-clipboard-list me-2"></i> Kelola Kategori
+            </a>
+            <a href="{{ route('produk.create') }}" class="btn btn-gold btn-sm">
+                <i class="fa-solid fa-plus me-2"></i> Tambah Produk
+            </a>
+        </div>
     </div>
 
     <div class="row align-items-center mb-4">
@@ -38,6 +49,7 @@
                     <th scope="col">Kategori</th>
                     <th scope="col">Satuan</th>
                     <th scope="col">Harga</th>
+                    <th scope="col">Status Batch</th>
                     <th scope="col">Stok</th>
                     <th scope="col" class="text-center table-action-heading">Aksi</th>
                 </tr>
@@ -51,6 +63,19 @@
                         <td class="text-muted">{{ $produk->kategori?->nama_kategori ?? '-' }}</td>
                         <td class="text-muted">{{ $produk->satuan?->nama_satuan ?? '-' }}</td>
                         <td class="text-muted text-money">{{ $produk->formatted_harga }}</td>
+                        <td>
+                            @php($batch = $produk->batches->first())
+
+                            @if(!$batch)
+                                <span class="badge bg-secondary stock-badge">Belum Ada Batch</span>
+                            @elseif($batch->tanggal_expired->isPast())
+                                <span class="badge bg-danger stock-badge">Kadaluarsa</span>
+                            @elseif($batch->tanggal_expired->lte(now()->addDays(30)))
+                                <span class="badge bg-warning text-dark stock-badge">Segera Expired</span>
+                            @else
+                                <span class="badge bg-success stock-badge">Aktif</span>
+                            @endif
+                        </td>
                         <td>
                             @if($produk->stok_terkini == 0)
                                 <span class="badge bg-danger stock-badge">Habis</span>
@@ -77,7 +102,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="text-center text-muted py-4">Tidak ada produk yang ditemukan.</td>
+                        <td colspan="9" class="text-center text-muted py-4">Tidak ada produk yang ditemukan.</td>
                     </tr>
                 @endforelse
             </tbody>

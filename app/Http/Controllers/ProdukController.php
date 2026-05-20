@@ -51,7 +51,11 @@ class ProdukController extends Controller
         $search = $request->query('search');
         $kategoriFilter = $request->query('kategori');
 
-        $query = Produk::with(['kategori', 'satuan']);
+        $query = Produk::with([
+            'kategori',
+            'satuan',
+            'batches' => fn ($query) => $query->orderBy('tanggal_expired', 'asc'),
+        ]);
 
         if ($search) {
             $query->where(function ($q) use ($search) {
