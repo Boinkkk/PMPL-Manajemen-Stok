@@ -13,9 +13,14 @@
                 <h2 class="text-2xl font-semibold">Dashboard Monitoring</h2>
                 <p class="text-sm text-jamu-muted">Pantau stok, notifikasi, dan batch mendekati kedaluwarsa.</p>
             </div>
-            <p class="rounded-md border border-jamu-border bg-jamu-surface px-3 py-2 text-sm text-jamu-muted">
-                Terakhir diperbarui: <span x-text="updatedAt"></span>
-            </p>
+            <div class="flex flex-wrap items-center gap-2">
+                <a href="{{ route('monitoring.eoq.index') }}" class="rounded-md bg-jamu-secondary px-4 py-2 text-sm font-semibold text-jamu-primary-dark hover:bg-jamu-secondary-light">
+                    Kelola EOQ
+                </a>
+                <p class="rounded-md border border-jamu-border bg-jamu-surface px-3 py-2 text-sm text-jamu-muted">
+                    Terakhir diperbarui: <span x-text="updatedAt"></span>
+                </p>
+            </div>
         </div>
 
         <div class="grid gap-3 md:grid-cols-4">

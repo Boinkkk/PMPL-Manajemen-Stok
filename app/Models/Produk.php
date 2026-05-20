@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable(['id_produk', 'id_kategori', 'id_satuan', 'kode_produk', 'nama_produk', 'harga_satuan', 'stok_terkini', 'stok_minimum', 'deskripsi'])]
 class Produk extends Model
@@ -55,6 +56,11 @@ class Produk extends Model
     public function batches(): HasMany
     {
         return $this->hasMany(Batch::class, 'id_produk', 'id_produk');
+    }
+
+    public function dataEoq(): HasOne
+    {
+        return $this->hasOne(DataEoq::class, 'id_produk', 'id_produk');
     }
 
     public function detailOrders(): HasMany
