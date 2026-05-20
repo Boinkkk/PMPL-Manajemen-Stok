@@ -1,82 +1,53 @@
-@extends('layouts.app')
-
-@section('title', 'Tambah Produk')
-
-@section('content')
-<div class="content-card p-4 mb-4">
-    <div class="content-header d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
-        <div>
-            <h4 class="mb-1">Tambah Produk</h4>
-            <p class="text-muted mb-0">Isi detail produk untuk menambah produk baru.</p>
+<x-layouts.app title="Tambah Produk">
+    <section class="flex flex-col gap-4">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h2 class="text-2xl font-semibold">Tambah Produk</h2>
+                <p class="text-sm text-jamu-muted">Isi detail produk untuk menambah item stok baru.</p>
+            </div>
+            <a href="{{ route('produk.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-sm hover:bg-jamu-surface">Kembali</a>
         </div>
-        <a href="{{ route('produk.index') }}" class="btn btn-back">
-            <i class="fa-solid fa-arrow-left me-2"></i> Kembali
-        </a>
-    </div>
 
-    <form action="{{ route('produk.store') }}" method="POST" class="js-loading-form mt-4">
-        @csrf
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="kode_produk" class="form-label">Kode Produk</label>
-                <input type="text" name="kode_produk" id="kode_produk" class="form-control @error('kode_produk') is-invalid @enderror" value="{{ old('kode_produk', $generatedKode) }}">
-                @error('kode_produk')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <form action="{{ route('produk.store') }}" method="POST" class="grid gap-4 rounded-md border border-jamu-border bg-jamu-surface p-5">
+            @csrf
+
+            <div class="grid gap-4 md:grid-cols-2">
+                <x-form.input name="kode_produk" label="Kode Produk" :value="$generatedKode" required />
+                <x-form.input name="nama_produk" label="Nama Produk" required />
             </div>
-            <div class="col-md-6 mb-3">
-                <label for="nama_produk" class="form-label">Nama Produk</label>
-                <input type="text" name="nama_produk" id="nama_produk" class="form-control @error('nama_produk') is-invalid @enderror" value="{{ old('nama_produk') }}">
-                @error('nama_produk')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="id_kategori" class="form-label">Kategori</label>
-                <select name="id_kategori" id="id_kategori" class="form-select @error('id_kategori') is-invalid @enderror">
+
+            <div class="grid gap-4 md:grid-cols-2">
+                <x-form.select name="id_kategori" label="Kategori" required>
                     <option value="">Pilih Kategori</option>
                     @foreach($kategoris as $kat)
-                        <option value="{{ $kat->id_kategori }}" {{ old('id_kategori') == $kat->id_kategori ? 'selected' : '' }}>{{ $kat->nama_kategori }}</option>
+                        <option value="{{ $kat->id_kategori }}" @selected(old('id_kategori') == $kat->id_kategori)>{{ $kat->nama_kategori }}</option>
                     @endforeach
-                </select>
-                @error('id_kategori')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="id_satuan" class="form-label">Satuan</label>
-                <select name="id_satuan" id="id_satuan" class="form-select @error('id_satuan') is-invalid @enderror">
-                    <option value="">Pilih Satuan</option>
-                    @foreach($satuans as $s)
-                        <option value="{{ $s->id_satuan }}" {{ old('id_satuan') == $s->id_satuan ? 'selected' : '' }}>{{ $s->nama_satuan }}</option>
-                    @endforeach
-                </select>
-                @error('id_satuan')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="harga_satuan" class="form-label">Harga Satuan</label>
-                <input type="number" step="0.01" name="harga_satuan" id="harga_satuan" class="form-control @error('harga_satuan') is-invalid @enderror" value="{{ old('harga_satuan', 0) }}">
-                @error('harga_satuan')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="stok_terkini" class="form-label">Stok Terkini</label>
-                <input type="number" name="stok_terkini" id="stok_terkini" class="form-control @error('stok_terkini') is-invalid @enderror" value="{{ old('stok_terkini', 0) }}">
-                @error('stok_terkini')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="stok_minimum" class="form-label">Stok Minimum</label>
-                <input type="number" name="stok_minimum" id="stok_minimum" class="form-control @error('stok_minimum') is-invalid @enderror" value="{{ old('stok_minimum', 0) }}">
-                @error('stok_minimum')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-12 mb-3">
-                <label for="deskripsi" class="form-label">Deskripsi</label>
-                <textarea name="deskripsi" id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="4">{{ old('deskripsi') }}</textarea>
-                @error('deskripsi')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-        </div>
+                </x-form.select>
 
-        <div class="d-flex justify-content-end gap-2">
-            <a href="{{ route('produk.index') }}" class="btn btn-back">
-                <i class="fa-solid fa-xmark me-2"></i> Batal
-            </a>
-            <button type="submit" class="btn btn-gold">
-                <i class="fa-solid fa-save me-2"></i> Simpan
-            </button>
-        </div>
-    </form>
-</div>
-@endsection
+                <x-form.select name="id_satuan" label="Satuan" required>
+                    <option value="">Pilih Satuan</option>
+                    @foreach($satuans as $satuan)
+                        <option value="{{ $satuan->id_satuan }}" @selected(old('id_satuan') == $satuan->id_satuan)>{{ $satuan->nama_satuan }}</option>
+                    @endforeach
+                </x-form.select>
+            </div>
+
+            <div class="grid gap-4 md:grid-cols-3">
+                <x-form.input name="harga_satuan" label="Harga Satuan" type="number" :value="0" min="0" step="0.01" required />
+                <x-form.input name="stok_terkini" label="Stok Terkini" type="number" :value="0" min="0" required />
+                <x-form.input name="stok_minimum" label="Stok Minimum" type="number" :value="0" min="0" required />
+            </div>
+
+            <label class="flex flex-col gap-1 text-sm">
+                <span class="font-medium text-jamu-text">Deskripsi</span>
+                <textarea name="deskripsi" rows="4" class="rounded-md border-jamu-border bg-white px-3 py-2 text-sm shadow-sm focus:border-jamu-secondary focus:ring-jamu-secondary">{{ old('deskripsi') }}</textarea>
+                <x-form.error name="deskripsi" />
+            </label>
+
+            <div class="flex justify-end gap-2">
+                <a href="{{ route('produk.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-sm hover:bg-jamu-bg">Batal</a>
+                <button type="submit" class="rounded-md bg-jamu-secondary px-4 py-2 text-sm font-semibold text-jamu-primary-dark hover:bg-jamu-secondary-light">Simpan</button>
+            </div>
+        </form>
+    </section>
+</x-layouts.app>

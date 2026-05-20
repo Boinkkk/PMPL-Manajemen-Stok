@@ -46,6 +46,18 @@ class Distributor extends Model
     }
 
     /**
+     * Scope distributor aktif.
+     *
+     * Tabel distributor tidak memiliki kolom status pada migration, jadi semua
+     * distributor dianggap aktif untuk form order distribusi.
+     */
+    #[Scope]
+    protected function aktif(Builder $query): void
+    {
+        //
+    }
+
+    /**
      * Format tanggal dibuat untuk tampilan Bahasa Indonesia.
      *
      * @return Attribute<string|null, never>

@@ -1,201 +1,169 @@
-@extends('layouts.app')
+<x-layouts.app title="Audit Trail">
+    <section
+        class="flex flex-col gap-5"
+        x-data="auditTrailPage()"
+    >
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h2 class="text-2xl font-semibold">Audit Trail</h2>
+                <p class="text-sm text-jamu-muted">Riwayat perubahan data dan aktivitas sensitif pada sistem.</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button type="button" @click="submitExport('{{ route('audit.export.csv') }}')" class="rounded-md bg-jamu-green px-4 py-2 text-sm font-semibold text-white hover:bg-green-700">
+                    Ekspor CSV
+                </button>
+                <button type="button" @click="submitExport('{{ route('audit.export.pdf') }}')" class="rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700">
+                    Ekspor PDF
+                </button>
+            </div>
+        </div>
 
-@section('title', 'Audit Trail')
-@section('page-title', 'Audit Trail')
+        <form x-ref="filterForm" id="filterForm" method="GET" action="{{ route('audit.index') }}" class="grid gap-3 rounded-md border border-jamu-border bg-jamu-surface p-4 md:grid-cols-5">
+            <label class="flex flex-col gap-1 text-sm">
+                <span class="font-medium">Pengguna</span>
+                <select name="id_pengguna" class="rounded-md border-jamu-border bg-white px-3 py-2 text-sm">
+                    <option value="">Semua Pengguna</option>
+                    @foreach ($penggunaList as $pengguna)
+                        <option value="{{ $pengguna->id_pengguna }}" @selected(request('id_pengguna') == $pengguna->id_pengguna)>
+                            {{ $pengguna->nama_lengkap }}
+                        </option>
+                    @endforeach
+                </select>
+            </label>
 
-@section('content')
-    {{-- Jika database kosong, buat data dummy melalui seeder atau SQL insert ke tabel role, pengguna, lalu audit_trail. --}}
-    <div class="card-soft p-4 mb-4">
-        <form id="filterForm" method="GET" action="{{ route('audit.index') }}">
-            <div class="row g-3 align-items-end">
-                <div class="col-12 col-md-6 col-xl-3">
-                    <label for="id_pengguna" class="form-label fw-semibold">Pengguna</label>
-                    <select id="id_pengguna" name="id_pengguna" class="form-select">
-                        <option value="">Semua Pengguna</option>
-                        @foreach ($penggunaList as $pengguna)
-                            <option value="{{ $pengguna->id_pengguna }}" @selected(request('id_pengguna') == $pengguna->id_pengguna)>
-                                {{ $pengguna->nama_lengkap }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+            <label class="flex flex-col gap-1 text-sm">
+                <span class="font-medium">Tanggal Mulai</span>
+                <input type="date" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}" class="rounded-md border-jamu-border bg-white px-3 py-2 text-sm">
+            </label>
 
-                <div class="col-12 col-md-6 col-xl-2">
-                    <label for="tanggal_mulai" class="form-label fw-semibold">Tanggal Mulai</label>
-                    <input id="tanggal_mulai" type="date" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}" class="form-control">
-                </div>
+            <label class="flex flex-col gap-1 text-sm">
+                <span class="font-medium">Tanggal Selesai</span>
+                <input type="date" name="tanggal_selesai" value="{{ request('tanggal_selesai') }}" class="rounded-md border-jamu-border bg-white px-3 py-2 text-sm">
+            </label>
 
-                <div class="col-12 col-md-6 col-xl-2">
-                    <label for="tanggal_selesai" class="form-label fw-semibold">Tanggal Selesai</label>
-                    <input id="tanggal_selesai" type="date" name="tanggal_selesai" value="{{ request('tanggal_selesai') }}" class="form-control">
-                </div>
+            <label class="flex flex-col gap-1 text-sm">
+                <span class="font-medium">Aktivitas</span>
+                <select name="aksi" class="rounded-md border-jamu-border bg-white px-3 py-2 text-sm">
+                    <option value="">Semua Aktivitas</option>
+                    @foreach ($aksiList as $aksi)
+                        <option value="{{ $aksi }}" @selected(request('aksi') === $aksi)>{{ $aksi }}</option>
+                    @endforeach
+                </select>
+            </label>
 
-                <div class="col-12 col-md-6 col-xl-2">
-                    <label for="aksi" class="form-label fw-semibold">Aktivitas</label>
-                    <select id="aksi" name="aksi" class="form-select">
-                        <option value="">Semua Aktivitas</option>
-                        @foreach ($aksiList as $aksi)
-                            <option value="{{ $aksi }}" @selected(request('aksi') === $aksi)>{{ $aksi }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-12 col-xl-3 d-flex gap-2">
-                    <button type="submit" class="btn btn-gold flex-fill">
-                        <i class="fa-solid fa-filter me-1"></i>Filter
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary flex-fill" onclick="resetFilter()">
-                        <i class="fa-solid fa-rotate-left me-1"></i>Reset
-                    </button>
-                </div>
+            <div class="flex items-end gap-2">
+                <button type="submit" class="flex-1 rounded-md bg-jamu-primary px-4 py-2 text-sm font-semibold text-white hover:bg-jamu-primary-dark">Filter</button>
+                <a href="{{ route('audit.index') }}" class="flex-1 rounded-md border border-jamu-border px-4 py-2 text-center text-sm hover:bg-jamu-bg">Reset</a>
             </div>
         </form>
-    </div>
 
-    <div class="card-soft p-4">
-        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 align-items-md-center mb-3">
-            <div>
-                <h5 class="mb-1 fw-bold">Daftar Aktivitas</h5>
-                <small class="text-muted">Riwayat perubahan data pada sistem</small>
+        <div class="rounded-md border border-jamu-border bg-jamu-surface p-4">
+            <div class="mb-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h3 class="font-semibold">Daftar Aktivitas</h3>
+                    <p class="text-sm text-jamu-muted">Menampilkan {{ number_format($audits->total(), 0, ',', '.') }} catatan audit.</p>
+                </div>
             </div>
-            <div class="d-flex gap-2">
-                <button type="button" class="btn btn-success" onclick="exportCsv()">
-                    <i class="fa-solid fa-file-csv me-1"></i>Ekspor Excel/CSV
-                </button>
-                <button type="button" class="btn btn-danger" onclick="exportPdf()">
-                    <i class="fa-solid fa-file-pdf me-1"></i>Ekspor PDF
-                </button>
-            </div>
-        </div>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th>No</th>
-                        <th>Waktu</th>
-                        <th>Pengguna</th>
-                        <th>Aktivitas</th>
-                        <th>Modul</th>
-                        <th>Status</th>
-                        <th class="text-end">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($audits as $audit)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-jamu-border text-sm">
+                    <thead class="bg-jamu-secondary-light/40 text-left text-xs uppercase tracking-wide text-jamu-muted">
                         <tr>
-                            <td>{{ $audits->firstItem() + $loop->index }}</td>
-                            <td>{{ $audit->waktu_aksi?->format('d-m-Y H:i:s') }}</td>
-                            <td>{{ $audit->pengguna?->nama_lengkap ?? '-' }}</td>
-                            <td>{{ $audit->aksi }}</td>
-                            <td>{{ $audit->modul }}</td>
-                            <td><span class="badge rounded-pill text-bg-success px-3 py-2">Berhasil</span></td>
-                            <td class="text-end">
-                                <button type="button" class="btn btn-sm btn-info text-white" onclick="showDetail({{ $audit->id_audit }})">
-                                    <i class="fa-solid fa-eye me-1"></i>Detail
-                                </button>
-                            </td>
+                            <th class="px-4 py-3">No</th>
+                            <th class="px-4 py-3">Waktu</th>
+                            <th class="px-4 py-3">Pengguna</th>
+                            <th class="px-4 py-3">Aktivitas</th>
+                            <th class="px-4 py-3">Modul</th>
+                            <th class="px-4 py-3">Status</th>
+                            <th class="px-4 py-3 text-right">Aksi</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="text-center text-muted py-4">Belum ada data audit trail.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="divide-y divide-jamu-border">
+                        @forelse ($audits as $audit)
+                            <tr class="hover:bg-jamu-bg">
+                                <td class="px-4 py-3">{{ $audits->firstItem() + $loop->index }}</td>
+                                <td class="px-4 py-3">{{ $audit->waktu_aksi?->locale('id')->translatedFormat('d F Y H:i:s') }}</td>
+                                <td class="px-4 py-3">{{ $audit->pengguna?->nama_lengkap ?? '-' }}</td>
+                                <td class="px-4 py-3 font-medium">{{ $audit->aksi }}</td>
+                                <td class="px-4 py-3">{{ $audit->modul }}</td>
+                                <td class="px-4 py-3">
+                                    <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Berhasil</span>
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    <button type="button" @click="showDetail({{ $audit->id_audit }})" class="rounded-md border border-jamu-border px-3 py-1.5 text-sm hover:bg-jamu-bg">
+                                        Detail
+                                    </button>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="px-4 py-10 text-center text-jamu-muted">Belum ada data audit trail.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4">
+                {{ $audits->links() }}
+            </div>
         </div>
 
-        <div class="mt-3">
-            {{ $audits->links() }}
-        </div>
-    </div>
-
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-brand-brown text-white">
-                    <h5 class="modal-title" id="detailModalLabel">Detail Aktivitas</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        <div x-cloak x-show="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+            <div @click.outside="modalOpen = false" class="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-md border border-jamu-border bg-jamu-surface shadow-xl">
+                <div class="flex items-center justify-between border-b border-jamu-border px-5 py-4">
+                    <h3 class="font-semibold">Detail Aktivitas</h3>
+                    <button type="button" @click="modalOpen = false" class="rounded-md border border-jamu-border px-3 py-1 text-sm hover:bg-jamu-bg">Tutup</button>
                 </div>
-                <div class="modal-body" id="modalBody">
-                    <div class="text-center text-muted py-4">Memuat detail...</div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <div class="grid gap-4 p-5 text-sm md:grid-cols-2">
+                    <template x-if="loading">
+                        <div class="md:col-span-2 text-center text-jamu-muted">Memuat detail...</div>
+                    </template>
+                    <template x-if="!loading">
+                        <div class="contents">
+                            <div><p class="text-xs text-jamu-muted">ID Aktivitas</p><p class="font-medium" x-text="`AT-${detail.id ?? '-'}`"></p></div>
+                            <div><p class="text-xs text-jamu-muted">Pengguna</p><p class="font-medium" x-text="detail.pengguna ?? '-'"></p></div>
+                            <div><p class="text-xs text-jamu-muted">Modul</p><p class="font-medium" x-text="detail.modul ?? '-'"></p></div>
+                            <div><p class="text-xs text-jamu-muted">Aktivitas</p><p class="font-medium" x-text="detail.aktivitas ?? '-'"></p></div>
+                            <div class="md:col-span-2"><p class="text-xs text-jamu-muted">Data Sebelum</p><pre class="mt-1 overflow-x-auto rounded-md bg-jamu-bg p-3 text-xs" x-text="formatData(detail.data_lama)"></pre></div>
+                            <div class="md:col-span-2"><p class="text-xs text-jamu-muted">Data Sesudah</p><pre class="mt-1 overflow-x-auto rounded-md bg-jamu-bg p-3 text-xs" x-text="formatData(detail.data_baru)"></pre></div>
+                            <div><p class="text-xs text-jamu-muted">Waktu</p><p class="font-medium" x-text="detail.waktu ?? '-'"></p></div>
+                            <div><p class="text-xs text-jamu-muted">IP Address</p><p class="font-medium" x-text="detail.ip ?? '-'"></p></div>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    </section>
 
-@push('scripts')
     <script>
-        const filterForm = document.getElementById('filterForm');
-        const defaultAction = filterForm.action;
-
-        function resetFilter() {
-            filterForm.querySelectorAll('input, select').forEach((element) => {
-                element.value = '';
-            });
-            filterForm.action = defaultAction;
-            filterForm.submit();
-        }
-
-        function submitExport(action) {
-            filterForm.action = action;
-            filterForm.submit();
-            filterForm.action = defaultAction;
-        }
-
-        function exportCsv() {
-            submitExport('{{ route('audit.export.csv') }}');
-        }
-
-        function exportPdf() {
-            submitExport('{{ route('audit.export.pdf') }}');
-        }
-
-        function formatData(data) {
-            if (!data || Object.keys(data).length === 0) {
-                return '-';
-            }
-
-            return Object.entries(data)
-                .map(([key, value]) => `${key}=${typeof value === 'object' ? JSON.stringify(value) : value}`)
-                .join(', ');
-        }
-
-        function escapeHtml(value) {
-            return String(value ?? '-')
-                .replaceAll('&', '&amp;')
-                .replaceAll('<', '&lt;')
-                .replaceAll('>', '&gt;')
-                .replaceAll('"', '&quot;')
-                .replaceAll("'", '&#039;');
-        }
-
-        async function showDetail(id) {
-            const modalBody = document.getElementById('modalBody');
-            modalBody.innerHTML = '<div class="text-center text-muted py-4">Memuat detail...</div>';
-
-            const response = await fetch(`/audit/detail/${id}`);
-            const data = await response.json();
-
-            modalBody.innerHTML = `
-                <div class="row g-3">
-                    <div class="col-md-6"><strong>ID Aktivitas:</strong><br>AT-${escapeHtml(data.id)}</div>
-                    <div class="col-md-6"><strong>Pengguna:</strong><br>${escapeHtml(data.pengguna)}</div>
-                    <div class="col-md-6"><strong>Modul:</strong><br>${escapeHtml(data.modul)}</div>
-                    <div class="col-md-6"><strong>Aktivitas:</strong><br>${escapeHtml(data.aktivitas)}</div>
-                    <div class="col-12"><strong>Data Sebelum:</strong><br>${escapeHtml(formatData(data.data_lama))}</div>
-                    <div class="col-12"><strong>Data Sesudah:</strong><br>${escapeHtml(formatData(data.data_baru))}</div>
-                    <div class="col-md-6"><strong>Waktu:</strong><br>${escapeHtml(data.waktu)}</div>
-                    <div class="col-md-6"><strong>IP Address:</strong><br>${escapeHtml(data.ip)}</div>
-                    <div class="col-12"><strong>Status:</strong><br><span class="badge rounded-pill text-bg-success px-3 py-2">${escapeHtml(data.status)}</span></div>
-                </div>
-            `;
-
-            new bootstrap.Modal(document.getElementById('detailModal')).show();
+        function auditTrailPage() {
+            return {
+                modalOpen: false,
+                loading: false,
+                detail: {},
+                submitExport(action) {
+                    const form = this.$refs.filterForm;
+                    const defaultAction = form.action;
+                    form.action = action;
+                    form.submit();
+                    form.action = defaultAction;
+                },
+                async showDetail(id) {
+                    this.modalOpen = true;
+                    this.loading = true;
+                    this.detail = {};
+                    const response = await fetch(`/audit/detail/${id}`, { headers: { 'Accept': 'application/json' } });
+                    this.detail = await response.json();
+                    this.loading = false;
+                },
+                formatData(data) {
+                    if (!data || Object.keys(data).length === 0) {
+                        return '-';
+                    }
+                    return JSON.stringify(data, null, 2);
+                },
+            };
         }
     </script>
-@endpush
+</x-layouts.app>

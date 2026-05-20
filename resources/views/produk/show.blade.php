@@ -1,28 +1,57 @@
-@extends('layouts.app')
-
-@section('title', 'Detail Produk')
-
-@section('content')
-<div class="content-card p-4 mb-4">
-    <div class="content-header d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
-        <div>
-            <h4 class="mb-1">Detail Produk</h4>
-            <p class="text-muted mb-0">Informasi lengkap produk.</p>
+<x-layouts.app title="Detail Produk">
+    <section class="flex flex-col gap-4">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h2 class="text-2xl font-semibold">Detail Produk</h2>
+                <p class="text-sm text-jamu-muted">{{ $produk->kode_produk }}</p>
+            </div>
+            <div class="flex gap-2">
+                <a href="{{ route('produk.edit', $produk->id_produk) }}" class="rounded-md bg-jamu-secondary px-4 py-2 text-sm font-semibold text-jamu-primary-dark hover:bg-jamu-secondary-light">Edit</a>
+                <a href="{{ route('produk.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-sm hover:bg-jamu-surface">Kembali</a>
+            </div>
         </div>
-        <a href="{{ route('produk.index') }}" class="btn btn-outline-secondary-custom">Kembali</a>
-    </div>
 
-    <div class="mt-4">
-        <h5>{{ $produk->nama_produk }} <small class="text-muted">({{ $produk->kode_produk }})</small></h5>
-        <p><strong>Kategori:</strong> {{ $produk->kategori?->nama_kategori ?? '-' }}</p>
-        <p><strong>Satuan:</strong> {{ $produk->satuan?->nama_satuan ?? '-' }}</p>
-        <p><strong>Harga:</strong> {{ $produk->formatted_harga }}</p>
-        <p><strong>Stok Terkini:</strong> {{ $produk->stok_terkini }}</p>
-        <p><strong>Stok Minimum:</strong> {{ $produk->stok_minimum }}</p>
-        <p><strong>Deskripsi:</strong></p>
-        <div class="card p-3">
-            {!! nl2br(e($produk->deskripsi)) !!}
+        <div class="grid gap-4 rounded-md border border-jamu-border bg-jamu-surface p-5 md:grid-cols-3">
+            <div class="md:col-span-3">
+                <p class="text-xs text-jamu-muted">Nama Produk</p>
+                <p class="text-xl font-semibold">{{ $produk->nama_produk }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-jamu-muted">Kategori</p>
+                <p class="font-medium">{{ $produk->kategori?->nama_kategori ?? '-' }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-jamu-muted">Satuan</p>
+                <p class="font-medium">{{ $produk->satuan?->nama_satuan ?? '-' }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-jamu-muted">Harga</p>
+                <p class="font-medium">{{ $produk->formatted_harga }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-jamu-muted">Stok Terkini</p>
+                <p class="font-medium">{{ number_format($produk->stok_terkini, 0, ',', '.') }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-jamu-muted">Stok Minimum</p>
+                <p class="font-medium">{{ number_format($produk->stok_minimum, 0, ',', '.') }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-jamu-muted">Status</p>
+                @if($produk->stok_terkini == 0)
+                    <span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-800">Habis</span>
+                @elseif($produk->stok_terkini <= $produk->stok_minimum)
+                    <span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-800">Menipis</span>
+                @else
+                    <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Normal</span>
+                @endif
+            </div>
+            <div class="md:col-span-3">
+                <p class="text-xs text-jamu-muted">Deskripsi</p>
+                <div class="mt-1 rounded-md bg-jamu-bg p-4 text-sm">
+                    {!! nl2br(e($produk->deskripsi ?: '-')) !!}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-@endsection
+    </section>
+</x-layouts.app>
