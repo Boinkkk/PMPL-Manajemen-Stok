@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use PDOException;
@@ -56,6 +57,8 @@ class OrderDistribusiService
 
                 $this->simpanAuditTrail('BUAT_ORDER', 'Order Distribusi', null, $order->toArray(), $ipAddress, $pengguna);
 
+                Cache::flush();
+
                 return $order;
             }, attempts: 5);
         } catch (QueryException|PDOException $exception) {
@@ -97,6 +100,8 @@ class OrderDistribusiService
             $order->load(['distributor', 'pengguna', 'detailOrders.produk.satuan']);
 
             $this->simpanAuditTrail('EDIT_ORDER', 'Order Distribusi', $dataLama, $order->toArray(), $ipAddress, $pengguna);
+
+            Cache::flush();
 
             return $order;
         }, attempts: 5);
@@ -182,6 +187,8 @@ class OrderDistribusiService
                     'stok_keluar' => $stokKeluar->load('detailStokKeluar')->toArray(),
                 ], $ipAddress, $pengguna);
 
+                Cache::flush();
+
                 return $order;
             }, attempts: 5);
         } catch (QueryException|PDOException $exception) {
@@ -216,6 +223,8 @@ class OrderDistribusiService
 
             $this->simpanAuditTrail('TOLAK_ORDER', 'Order Distribusi', $dataLama, $order->toArray(), $ipAddress, $pengguna);
 
+            Cache::flush();
+
             return $order;
         });
     }
@@ -247,6 +256,8 @@ class OrderDistribusiService
                 'order' => $order->toArray(),
                 'waktu_pembatalan' => now()->toDateTimeString(),
             ], $ipAddress, $pengguna);
+
+            Cache::flush();
 
             return $order;
         });
@@ -292,6 +303,8 @@ class OrderDistribusiService
                 'order' => $newOrder->toArray(),
                 'sumber_order' => $order->nomor_order,
             ], $ipAddress, $pengguna);
+
+            Cache::flush();
 
             return $newOrder;
         }, attempts: 5);

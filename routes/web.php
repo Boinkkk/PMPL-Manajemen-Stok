@@ -12,6 +12,7 @@ Route::middleware(['auth', 'cek.status'])->group(function (): void {
     require __DIR__.'/dashboard.php';
     require __DIR__.'/monitoring.php';
     require __DIR__.'/notifikasi.php';
+    require __DIR__.'/laporan.php';
     require __DIR__.'/pengguna.php';
     require __DIR__.'/order-distribusi.php';
     require __DIR__.'/stok.php';

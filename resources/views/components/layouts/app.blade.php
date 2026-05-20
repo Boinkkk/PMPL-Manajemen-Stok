@@ -14,7 +14,7 @@
     </head>
     <body class="min-h-screen bg-jamu-bg font-sans text-jamu-text">
         <div class="min-h-screen">
-            <header class="border-b border-jamu-primary-dark bg-jamu-primary text-white">
+            <header class="border-b border-jamu-primary-dark bg-jamu-primary text-white print:hidden">
                 <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
                     <div>
                         <p class="text-sm text-jamu-secondary-light">Sistem Informasi</p>
@@ -24,6 +24,11 @@
                     <nav class="flex flex-wrap items-center gap-2 text-sm">
                         <a href="{{ route('dashboard') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Dashboard</a>
                         <a href="{{ route('monitoring.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Monitoring</a>
+                        @if (auth()->user()?->hasAnyRole(['Administrator', 'Manajer']))
+                            <a href="{{ route('laporan.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Laporan</a>
+                        @elseif (auth()->user()?->hasAnyRole(['Staf Gudang']))
+                            <a href="{{ route('laporan.show', 'stok-kedaluwarsa') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Laporan Kedaluwarsa</a>
+                        @endif
                         <a href="{{ route('order-distribusi.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Order Distribusi</a>
                         <a href="{{ route('stok-masuk.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Stok Masuk</a>
                         <a href="{{ route('stok-keluar.index') }}" class="rounded-md px-3 py-2 hover:bg-jamu-primary-dark">Stok Keluar</a>

@@ -11,6 +11,7 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use PDOException;
@@ -67,6 +68,8 @@ class StokMasukService
                     $ipAddress,
                     $pengguna
                 );
+
+                Cache::flush();
 
                 return $stokMasuk;
             });
