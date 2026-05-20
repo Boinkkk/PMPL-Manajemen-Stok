@@ -1,0 +1,1701 @@
+[
+    'id_eoq' => 1,
+    
+    'id_produk' => 1,
+    'permintaan_tahunan' => 14270,
+    'biaya_pemesanan' => 45000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 428,
+],
+[
+    'id_eoq' => 2,
+    
+    'id_produk' => 2,
+    'permintaan_tahunan' => 30670,
+    'biaya_pemesanan' => 49000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 1001,
+],
+[
+    'id_eoq' => 3,
+    
+    'id_produk' => 3,
+    'permintaan_tahunan' => 3086,
+    'biaya_pemesanan' => 89000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 303,
+],
+[
+    'id_eoq' => 4,
+    
+    'id_produk' => 4,
+    'permintaan_tahunan' => 35643,
+    'biaya_pemesanan' => 94000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 863,
+],
+[
+    'id_eoq' => 5,
+    
+    'id_produk' => 5,
+    'permintaan_tahunan' => 2285,
+    'biaya_pemesanan' => 78000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 199,
+],
+[
+    'id_eoq' => 6,
+    
+    'id_produk' => 6,
+    'permintaan_tahunan' => 2199,
+    'biaya_pemesanan' => 70000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 196,
+],
+[
+    'id_eoq' => 7,
+    
+    'id_produk' => 7,
+    'permintaan_tahunan' => 1981,
+    'biaya_pemesanan' => 84000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 408,
+],
+[
+    'id_eoq' => 8,
+    
+    'id_produk' => 8,
+    'permintaan_tahunan' => 36330,
+    'biaya_pemesanan' => 70000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 752,
+],
+[
+    'id_eoq' => 9,
+    
+    'id_produk' => 9,
+    'permintaan_tahunan' => 6703,
+    'biaya_pemesanan' => 92000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 453,
+],
+[
+    'id_eoq' => 10,
+    
+    'id_produk' => 10,
+    'permintaan_tahunan' => 23842,
+    'biaya_pemesanan' => 37000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 502,
+],
+[
+    'id_eoq' => 11,
+    
+    'id_produk' => 11,
+    'permintaan_tahunan' => 46679,
+    'biaya_pemesanan' => 26000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 779,
+],
+[
+    'id_eoq' => 12,
+    
+    'id_produk' => 12,
+    'permintaan_tahunan' => 26639,
+    'biaya_pemesanan' => 34000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 449,
+],
+[
+    'id_eoq' => 13,
+    
+    'id_produk' => 13,
+    'permintaan_tahunan' => 4487,
+    'biaya_pemesanan' => 20000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 424,
+],
+[
+    'id_eoq' => 14,
+    
+    'id_produk' => 14,
+    'permintaan_tahunan' => 14596,
+    'biaya_pemesanan' => 28000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 639,
+],
+[
+    'id_eoq' => 15,
+    
+    'id_produk' => 15,
+    'permintaan_tahunan' => 30444,
+    'biaya_pemesanan' => 59000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 632,
+],
+[
+    'id_eoq' => 16,
+    
+    'id_produk' => 16,
+    'permintaan_tahunan' => 14216,
+    'biaya_pemesanan' => 87000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 556,
+],
+[
+    'id_eoq' => 17,
+    
+    'id_produk' => 17,
+    'permintaan_tahunan' => 24796,
+    'biaya_pemesanan' => 17000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 306,
+],
+[
+    'id_eoq' => 18,
+    
+    'id_produk' => 18,
+    'permintaan_tahunan' => 5998,
+    'biaya_pemesanan' => 23000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 186,
+],
+[
+    'id_eoq' => 19,
+    
+    'id_produk' => 19,
+    'permintaan_tahunan' => 41526,
+    'biaya_pemesanan' => 81000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 865,
+],
+[
+    'id_eoq' => 20,
+    
+    'id_produk' => 20,
+    'permintaan_tahunan' => 44999,
+    'biaya_pemesanan' => 90000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 900,
+],
+[
+    'id_eoq' => 21,
+    
+    'id_produk' => 21,
+    'permintaan_tahunan' => 32277,
+    'biaya_pemesanan' => 63000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 823,
+],
+[
+    'id_eoq' => 22,
+    
+    'id_produk' => 22,
+    'permintaan_tahunan' => 35594,
+    'biaya_pemesanan' => 24000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 436,
+],
+[
+    'id_eoq' => 23,
+    
+    'id_produk' => 23,
+    'permintaan_tahunan' => 19403,
+    'biaya_pemesanan' => 31000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 548,
+],
+[
+    'id_eoq' => 24,
+    
+    'id_produk' => 24,
+    'permintaan_tahunan' => 41653,
+    'biaya_pemesanan' => 56000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 683,
+],
+[
+    'id_eoq' => 25,
+    
+    'id_produk' => 25,
+    'permintaan_tahunan' => 16340,
+    'biaya_pemesanan' => 25000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 522,
+],
+[
+    'id_eoq' => 26,
+    
+    'id_produk' => 26,
+    'permintaan_tahunan' => 20239,
+    'biaya_pemesanan' => 93000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 792,
+],
+[
+    'id_eoq' => 27,
+    
+    'id_produk' => 27,
+    'permintaan_tahunan' => 11685,
+    'biaya_pemesanan' => 56000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 404,
+],
+[
+    'id_eoq' => 28,
+    
+    'id_produk' => 28,
+    'permintaan_tahunan' => 22538,
+    'biaya_pemesanan' => 78000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 1083,
+],
+[
+    'id_eoq' => 29,
+    
+    'id_produk' => 29,
+    'permintaan_tahunan' => 4825,
+    'biaya_pemesanan' => 17000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 128,
+],
+[
+    'id_eoq' => 30,
+    
+    'id_produk' => 30,
+    'permintaan_tahunan' => 31364,
+    'biaya_pemesanan' => 44000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 1661,
+],
+[
+    'id_eoq' => 31,
+    
+    'id_produk' => 31,
+    'permintaan_tahunan' => 7292,
+    'biaya_pemesanan' => 63000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 339,
+],
+[
+    'id_eoq' => 32,
+    
+    'id_produk' => 32,
+    'permintaan_tahunan' => 45702,
+    'biaya_pemesanan' => 24000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 494,
+],
+[
+    'id_eoq' => 33,
+    
+    'id_produk' => 33,
+    'permintaan_tahunan' => 22021,
+    'biaya_pemesanan' => 62000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1168,
+],
+[
+    'id_eoq' => 34,
+    
+    'id_produk' => 34,
+    'permintaan_tahunan' => 49550,
+    'biaya_pemesanan' => 16000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 398,
+],
+[
+    'id_eoq' => 35,
+    
+    'id_produk' => 35,
+    'permintaan_tahunan' => 31275,
+    'biaya_pemesanan' => 94000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 990,
+],
+[
+    'id_eoq' => 36,
+    
+    'id_produk' => 36,
+    'permintaan_tahunan' => 33144,
+    'biaya_pemesanan' => 36000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 892,
+],
+[
+    'id_eoq' => 37,
+    
+    'id_produk' => 37,
+    'permintaan_tahunan' => 43135,
+    'biaya_pemesanan' => 52000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1498,
+],
+[
+    'id_eoq' => 38,
+    
+    'id_produk' => 38,
+    'permintaan_tahunan' => 25050,
+    'biaya_pemesanan' => 92000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 759,
+],
+[
+    'id_eoq' => 39,
+    
+    'id_produk' => 39,
+    'permintaan_tahunan' => 30633,
+    'biaya_pemesanan' => 21000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 463,
+],
+[
+    'id_eoq' => 40,
+    
+    'id_produk' => 40,
+    'permintaan_tahunan' => 11675,
+    'biaya_pemesanan' => 100000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 683,
+],
+[
+    'id_eoq' => 41,
+    
+    'id_produk' => 41,
+    'permintaan_tahunan' => 34455,
+    'biaya_pemesanan' => 33000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1066,
+],
+[
+    'id_eoq' => 42,
+    
+    'id_produk' => 42,
+    'permintaan_tahunan' => 12110,
+    'biaya_pemesanan' => 29000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 317,
+],
+[
+    'id_eoq' => 43,
+    
+    'id_produk' => 43,
+    'permintaan_tahunan' => 20181,
+    'biaya_pemesanan' => 78000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 591,
+],
+[
+    'id_eoq' => 44,
+    
+    'id_produk' => 44,
+    'permintaan_tahunan' => 26393,
+    'biaya_pemesanan' => 38000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 578,
+],
+[
+    'id_eoq' => 45,
+    
+    'id_produk' => 45,
+    'permintaan_tahunan' => 28444,
+    'biaya_pemesanan' => 69000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 1144,
+],
+[
+    'id_eoq' => 46,
+    
+    'id_produk' => 46,
+    'permintaan_tahunan' => 11587,
+    'biaya_pemesanan' => 24000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 264,
+],
+[
+    'id_eoq' => 47,
+    
+    'id_produk' => 47,
+    'permintaan_tahunan' => 43154,
+    'biaya_pemesanan' => 20000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 1314,
+],
+[
+    'id_eoq' => 48,
+    
+    'id_produk' => 48,
+    'permintaan_tahunan' => 12582,
+    'biaya_pemesanan' => 63000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 1259,
+],
+[
+    'id_eoq' => 49,
+    
+    'id_produk' => 49,
+    'permintaan_tahunan' => 21367,
+    'biaya_pemesanan' => 73000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1249,
+],
+[
+    'id_eoq' => 50,
+    
+    'id_produk' => 50,
+    'permintaan_tahunan' => 12779,
+    'biaya_pemesanan' => 20000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 715,
+],
+[
+    'id_eoq' => 51,
+    
+    'id_produk' => 51,
+    'permintaan_tahunan' => 17324,
+    'biaya_pemesanan' => 99000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 655,
+],
+[
+    'id_eoq' => 52,
+    
+    'id_produk' => 52,
+    'permintaan_tahunan' => 31032,
+    'biaya_pemesanan' => 99000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 876,
+],
+[
+    'id_eoq' => 53,
+    
+    'id_produk' => 53,
+    'permintaan_tahunan' => 4544,
+    'biaya_pemesanan' => 86000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 625,
+],
+[
+    'id_eoq' => 54,
+    
+    'id_produk' => 54,
+    'permintaan_tahunan' => 34431,
+    'biaya_pemesanan' => 11000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 290,
+],
+[
+    'id_eoq' => 55,
+    
+    'id_produk' => 55,
+    'permintaan_tahunan' => 1360,
+    'biaya_pemesanan' => 55000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 273,
+],
+[
+    'id_eoq' => 56,
+    
+    'id_produk' => 56,
+    'permintaan_tahunan' => 1779,
+    'biaya_pemesanan' => 77000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 185,
+],
+[
+    'id_eoq' => 57,
+    
+    'id_produk' => 57,
+    'permintaan_tahunan' => 14299,
+    'biaya_pemesanan' => 21000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 258,
+],
+[
+    'id_eoq' => 58,
+    
+    'id_produk' => 58,
+    'permintaan_tahunan' => 35231,
+    'biaya_pemesanan' => 18000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 398,
+],
+[
+    'id_eoq' => 59,
+    
+    'id_produk' => 59,
+    'permintaan_tahunan' => 23035,
+    'biaya_pemesanan' => 49000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 568,
+],
+[
+    'id_eoq' => 60,
+    
+    'id_produk' => 60,
+    'permintaan_tahunan' => 39830,
+    'biaya_pemesanan' => 93000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1925,
+],
+[
+    'id_eoq' => 61,
+    
+    'id_produk' => 61,
+    'permintaan_tahunan' => 14078,
+    'biaya_pemesanan' => 74000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 589,
+],
+[
+    'id_eoq' => 62,
+    
+    'id_produk' => 62,
+    'permintaan_tahunan' => 29563,
+    'biaya_pemesanan' => 16000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 688,
+],
+[
+    'id_eoq' => 63,
+    
+    'id_produk' => 63,
+    'permintaan_tahunan' => 4054,
+    'biaya_pemesanan' => 92000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 288,
+],
+[
+    'id_eoq' => 64,
+    
+    'id_produk' => 64,
+    'permintaan_tahunan' => 8171,
+    'biaya_pemesanan' => 11000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 190,
+],
+[
+    'id_eoq' => 65,
+    
+    'id_produk' => 65,
+    'permintaan_tahunan' => 5623,
+    'biaya_pemesanan' => 35000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 362,
+],
+[
+    'id_eoq' => 66,
+    
+    'id_produk' => 66,
+    'permintaan_tahunan' => 33367,
+    'biaya_pemesanan' => 97000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 805,
+],
+[
+    'id_eoq' => 67,
+    
+    'id_produk' => 67,
+    'permintaan_tahunan' => 5005,
+    'biaya_pemesanan' => 21000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 324,
+],
+[
+    'id_eoq' => 68,
+    
+    'id_produk' => 68,
+    'permintaan_tahunan' => 10062,
+    'biaya_pemesanan' => 10000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 183,
+],
+[
+    'id_eoq' => 69,
+    
+    'id_produk' => 69,
+    'permintaan_tahunan' => 23736,
+    'biaya_pemesanan' => 51000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 550,
+],
+[
+    'id_eoq' => 70,
+    
+    'id_produk' => 70,
+    'permintaan_tahunan' => 19025,
+    'biaya_pemesanan' => 100000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 872,
+],
+[
+    'id_eoq' => 71,
+    
+    'id_produk' => 71,
+    'permintaan_tahunan' => 19633,
+    'biaya_pemesanan' => 86000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 581,
+],
+[
+    'id_eoq' => 72,
+    
+    'id_produk' => 72,
+    'permintaan_tahunan' => 20409,
+    'biaya_pemesanan' => 97000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 704,
+],
+[
+    'id_eoq' => 73,
+    
+    'id_produk' => 73,
+    'permintaan_tahunan' => 7164,
+    'biaya_pemesanan' => 29000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 372,
+],
+[
+    'id_eoq' => 74,
+    
+    'id_produk' => 74,
+    'permintaan_tahunan' => 33785,
+    'biaya_pemesanan' => 54000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 854,
+],
+[
+    'id_eoq' => 75,
+    
+    'id_produk' => 75,
+    'permintaan_tahunan' => 3922,
+    'biaya_pemesanan' => 40000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 323,
+],
+[
+    'id_eoq' => 76,
+    
+    'id_produk' => 76,
+    'permintaan_tahunan' => 7191,
+    'biaya_pemesanan' => 26000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 432,
+],
+[
+    'id_eoq' => 77,
+    
+    'id_produk' => 77,
+    'permintaan_tahunan' => 3762,
+    'biaya_pemesanan' => 96000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 491,
+],
+[
+    'id_eoq' => 78,
+    
+    'id_produk' => 78,
+    'permintaan_tahunan' => 11381,
+    'biaya_pemesanan' => 79000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 507,
+],
+[
+    'id_eoq' => 79,
+    
+    'id_produk' => 79,
+    'permintaan_tahunan' => 9680,
+    'biaya_pemesanan' => 72000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 373,
+],
+[
+    'id_eoq' => 80,
+    
+    'id_produk' => 80,
+    'permintaan_tahunan' => 35949,
+    'biaya_pemesanan' => 67000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 830,
+],
+[
+    'id_eoq' => 81,
+    
+    'id_produk' => 81,
+    'permintaan_tahunan' => 27216,
+    'biaya_pemesanan' => 45000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 522,
+],
+[
+    'id_eoq' => 82,
+    
+    'id_produk' => 82,
+    'permintaan_tahunan' => 33002,
+    'biaya_pemesanan' => 87000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1694,
+],
+[
+    'id_eoq' => 83,
+    
+    'id_produk' => 83,
+    'permintaan_tahunan' => 1700,
+    'biaya_pemesanan' => 60000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 160,
+],
+[
+    'id_eoq' => 84,
+    
+    'id_produk' => 84,
+    'permintaan_tahunan' => 28024,
+    'biaya_pemesanan' => 30000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 490,
+],
+[
+    'id_eoq' => 85,
+    
+    'id_produk' => 85,
+    'permintaan_tahunan' => 7677,
+    'biaya_pemesanan' => 33000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 411,
+],
+[
+    'id_eoq' => 86,
+    
+    'id_produk' => 86,
+    'permintaan_tahunan' => 5549,
+    'biaya_pemesanan' => 83000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 339,
+],
+[
+    'id_eoq' => 87,
+    
+    'id_produk' => 87,
+    'permintaan_tahunan' => 26104,
+    'biaya_pemesanan' => 95000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 787,
+],
+[
+    'id_eoq' => 88,
+    
+    'id_produk' => 88,
+    'permintaan_tahunan' => 18754,
+    'biaya_pemesanan' => 92000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1314,
+],
+[
+    'id_eoq' => 89,
+    
+    'id_produk' => 89,
+    'permintaan_tahunan' => 25333,
+    'biaya_pemesanan' => 61000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 586,
+],
+[
+    'id_eoq' => 90,
+    
+    'id_produk' => 90,
+    'permintaan_tahunan' => 34628,
+    'biaya_pemesanan' => 77000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 730,
+],
+[
+    'id_eoq' => 91,
+    
+    'id_produk' => 91,
+    'permintaan_tahunan' => 27447,
+    'biaya_pemesanan' => 18000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 331,
+],
+[
+    'id_eoq' => 92,
+    
+    'id_produk' => 92,
+    'permintaan_tahunan' => 12795,
+    'biaya_pemesanan' => 77000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 702,
+],
+[
+    'id_eoq' => 93,
+    
+    'id_produk' => 93,
+    'permintaan_tahunan' => 3915,
+    'biaya_pemesanan' => 57000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 668,
+],
+[
+    'id_eoq' => 94,
+    
+    'id_produk' => 94,
+    'permintaan_tahunan' => 37063,
+    'biaya_pemesanan' => 38000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 685,
+],
+[
+    'id_eoq' => 95,
+    
+    'id_produk' => 95,
+    'permintaan_tahunan' => 37512,
+    'biaya_pemesanan' => 34000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 714,
+],
+[
+    'id_eoq' => 96,
+    
+    'id_produk' => 96,
+    'permintaan_tahunan' => 20032,
+    'biaya_pemesanan' => 52000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 833,
+],
+[
+    'id_eoq' => 97,
+    
+    'id_produk' => 97,
+    'permintaan_tahunan' => 27813,
+    'biaya_pemesanan' => 99000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 958,
+],
+[
+    'id_eoq' => 98,
+    
+    'id_produk' => 98,
+    'permintaan_tahunan' => 1929,
+    'biaya_pemesanan' => 27000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 161,
+],
+[
+    'id_eoq' => 99,
+    
+    'id_produk' => 99,
+    'permintaan_tahunan' => 48954,
+    'biaya_pemesanan' => 66000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 804,
+],
+[
+    'id_eoq' => 100,
+    
+    'id_produk' => 100,
+    'permintaan_tahunan' => 49373,
+    'biaya_pemesanan' => 47000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 814,
+],
+[
+    'id_eoq' => 101,
+    
+    'id_produk' => 101,
+    'permintaan_tahunan' => 8735,
+    'biaya_pemesanan' => 81000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 376,
+],
+[
+    'id_eoq' => 102,
+    
+    'id_produk' => 102,
+    'permintaan_tahunan' => 30849,
+    'biaya_pemesanan' => 60000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 785,
+],
+[
+    'id_eoq' => 103,
+    
+    'id_produk' => 103,
+    'permintaan_tahunan' => 34893,
+    'biaya_pemesanan' => 31000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 556,
+],
+[
+    'id_eoq' => 104,
+    
+    'id_produk' => 104,
+    'permintaan_tahunan' => 12609,
+    'biaya_pemesanan' => 34000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 535,
+],
+[
+    'id_eoq' => 105,
+    
+    'id_produk' => 105,
+    'permintaan_tahunan' => 28664,
+    'biaya_pemesanan' => 22000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 1123,
+],
+[
+    'id_eoq' => 106,
+    
+    'id_produk' => 106,
+    'permintaan_tahunan' => 20926,
+    'biaya_pemesanan' => 77000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 898,
+],
+[
+    'id_eoq' => 107,
+    
+    'id_produk' => 107,
+    'permintaan_tahunan' => 10526,
+    'biaya_pemesanan' => 83000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 661,
+],
+[
+    'id_eoq' => 108,
+    
+    'id_produk' => 108,
+    'permintaan_tahunan' => 21418,
+    'biaya_pemesanan' => 50000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 654,
+],
+[
+    'id_eoq' => 109,
+    
+    'id_produk' => 109,
+    'permintaan_tahunan' => 43556,
+    'biaya_pemesanan' => 87000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 1231,
+],
+[
+    'id_eoq' => 110,
+    
+    'id_produk' => 110,
+    'permintaan_tahunan' => 22673,
+    'biaya_pemesanan' => 80000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 673,
+],
+[
+    'id_eoq' => 111,
+    
+    'id_produk' => 111,
+    'permintaan_tahunan' => 41263,
+    'biaya_pemesanan' => 73000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 818,
+],
+[
+    'id_eoq' => 112,
+    
+    'id_produk' => 112,
+    'permintaan_tahunan' => 35472,
+    'biaya_pemesanan' => 88000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 1020,
+],
+[
+    'id_eoq' => 113,
+    
+    'id_produk' => 113,
+    'permintaan_tahunan' => 12359,
+    'biaya_pemesanan' => 25000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 249,
+],
+[
+    'id_eoq' => 114,
+    
+    'id_produk' => 114,
+    'permintaan_tahunan' => 16134,
+    'biaya_pemesanan' => 42000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 521,
+],
+[
+    'id_eoq' => 115,
+    
+    'id_produk' => 115,
+    'permintaan_tahunan' => 36207,
+    'biaya_pemesanan' => 21000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 712,
+],
+[
+    'id_eoq' => 116,
+    
+    'id_produk' => 116,
+    'permintaan_tahunan' => 35834,
+    'biaya_pemesanan' => 76000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1650,
+],
+[
+    'id_eoq' => 117,
+    
+    'id_produk' => 117,
+    'permintaan_tahunan' => 46665,
+    'biaya_pemesanan' => 18000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 432,
+],
+[
+    'id_eoq' => 118,
+    
+    'id_produk' => 118,
+    'permintaan_tahunan' => 4053,
+    'biaya_pemesanan' => 66000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 244,
+],
+[
+    'id_eoq' => 119,
+    
+    'id_produk' => 119,
+    'permintaan_tahunan' => 26040,
+    'biaya_pemesanan' => 97000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 1124,
+],
+[
+    'id_eoq' => 120,
+    
+    'id_produk' => 120,
+    'permintaan_tahunan' => 41399,
+    'biaya_pemesanan' => 75000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 881,
+],
+[
+    'id_eoq' => 121,
+    
+    'id_produk' => 121,
+    'permintaan_tahunan' => 36930,
+    'biaya_pemesanan' => 28000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1017,
+],
+[
+    'id_eoq' => 122,
+    
+    'id_produk' => 122,
+    'permintaan_tahunan' => 40653,
+    'biaya_pemesanan' => 68000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 1176,
+],
+[
+    'id_eoq' => 123,
+    
+    'id_produk' => 123,
+    'permintaan_tahunan' => 48134,
+    'biaya_pemesanan' => 11000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 594,
+],
+[
+    'id_eoq' => 124,
+    
+    'id_produk' => 124,
+    'permintaan_tahunan' => 34392,
+    'biaya_pemesanan' => 88000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 930,
+],
+[
+    'id_eoq' => 125,
+    
+    'id_produk' => 125,
+    'permintaan_tahunan' => 34473,
+    'biaya_pemesanan' => 26000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 446,
+],
+[
+    'id_eoq' => 126,
+    
+    'id_produk' => 126,
+    'permintaan_tahunan' => 23503,
+    'biaya_pemesanan' => 67000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 627,
+],
+[
+    'id_eoq' => 127,
+    
+    'id_produk' => 127,
+    'permintaan_tahunan' => 33775,
+    'biaya_pemesanan' => 27000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 1350,
+],
+[
+    'id_eoq' => 128,
+    
+    'id_produk' => 128,
+    'permintaan_tahunan' => 25727,
+    'biaya_pemesanan' => 33000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 434,
+],
+[
+    'id_eoq' => 129,
+    
+    'id_produk' => 129,
+    'permintaan_tahunan' => 33152,
+    'biaya_pemesanan' => 19000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 561,
+],
+[
+    'id_eoq' => 130,
+    
+    'id_produk' => 130,
+    'permintaan_tahunan' => 43468,
+    'biaya_pemesanan' => 42000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 1911,
+],
+[
+    'id_eoq' => 131,
+    
+    'id_produk' => 131,
+    'permintaan_tahunan' => 30212,
+    'biaya_pemesanan' => 16000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 440,
+],
+[
+    'id_eoq' => 132,
+    
+    'id_produk' => 132,
+    'permintaan_tahunan' => 14947,
+    'biaya_pemesanan' => 55000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 907,
+],
+[
+    'id_eoq' => 133,
+    
+    'id_produk' => 133,
+    'permintaan_tahunan' => 12557,
+    'biaya_pemesanan' => 31000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 312,
+],
+[
+    'id_eoq' => 134,
+    
+    'id_produk' => 134,
+    'permintaan_tahunan' => 16986,
+    'biaya_pemesanan' => 71000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 634,
+],
+[
+    'id_eoq' => 135,
+    
+    'id_produk' => 135,
+    'permintaan_tahunan' => 3258,
+    'biaya_pemesanan' => 73000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 488,
+],
+[
+    'id_eoq' => 136,
+    
+    'id_produk' => 136,
+    'permintaan_tahunan' => 23438,
+    'biaya_pemesanan' => 79000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 861,
+],
+[
+    'id_eoq' => 137,
+    
+    'id_produk' => 137,
+    'permintaan_tahunan' => 43108,
+    'biaya_pemesanan' => 98000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 1187,
+],
+[
+    'id_eoq' => 138,
+    
+    'id_produk' => 138,
+    'permintaan_tahunan' => 2292,
+    'biaya_pemesanan' => 74000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 336,
+],
+[
+    'id_eoq' => 139,
+    
+    'id_produk' => 139,
+    'permintaan_tahunan' => 28634,
+    'biaya_pemesanan' => 59000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 822,
+],
+[
+    'id_eoq' => 140,
+    
+    'id_produk' => 140,
+    'permintaan_tahunan' => 21284,
+    'biaya_pemesanan' => 79000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 1059,
+],
+[
+    'id_eoq' => 141,
+    
+    'id_produk' => 141,
+    'permintaan_tahunan' => 22179,
+    'biaya_pemesanan' => 65000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 642,
+],
+[
+    'id_eoq' => 142,
+    
+    'id_produk' => 142,
+    'permintaan_tahunan' => 22044,
+    'biaya_pemesanan' => 88000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 881,
+],
+[
+    'id_eoq' => 143,
+    
+    'id_produk' => 143,
+    'permintaan_tahunan' => 3158,
+    'biaya_pemesanan' => 47000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 172,
+],
+[
+    'id_eoq' => 144,
+    
+    'id_produk' => 144,
+    'permintaan_tahunan' => 4050,
+    'biaya_pemesanan' => 67000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 233,
+],
+[
+    'id_eoq' => 145,
+    
+    'id_produk' => 145,
+    'permintaan_tahunan' => 42581,
+    'biaya_pemesanan' => 38000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 636,
+],
+[
+    'id_eoq' => 146,
+    
+    'id_produk' => 146,
+    'permintaan_tahunan' => 36201,
+    'biaya_pemesanan' => 51000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 1922,
+],
+[
+    'id_eoq' => 147,
+    
+    'id_produk' => 147,
+    'permintaan_tahunan' => 6787,
+    'biaya_pemesanan' => 28000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 233,
+],
+[
+    'id_eoq' => 148,
+    
+    'id_produk' => 148,
+    'permintaan_tahunan' => 27139,
+    'biaya_pemesanan' => 52000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 594,
+],
+[
+    'id_eoq' => 149,
+    
+    'id_produk' => 149,
+    'permintaan_tahunan' => 16021,
+    'biaya_pemesanan' => 37000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 770,
+],
+[
+    'id_eoq' => 150,
+    
+    'id_produk' => 150,
+    'permintaan_tahunan' => 35206,
+    'biaya_pemesanan' => 82000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 1075,
+],
+[
+    'id_eoq' => 151,
+    
+    'id_produk' => 151,
+    'permintaan_tahunan' => 49407,
+    'biaya_pemesanan' => 24000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 770,
+],
+[
+    'id_eoq' => 152,
+    
+    'id_produk' => 152,
+    'permintaan_tahunan' => 3451,
+    'biaya_pemesanan' => 48000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 576,
+],
+[
+    'id_eoq' => 153,
+    
+    'id_produk' => 153,
+    'permintaan_tahunan' => 35475,
+    'biaya_pemesanan' => 23000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 738,
+],
+[
+    'id_eoq' => 154,
+    
+    'id_produk' => 154,
+    'permintaan_tahunan' => 19526,
+    'biaya_pemesanan' => 71000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 680,
+],
+[
+    'id_eoq' => 155,
+    
+    'id_produk' => 155,
+    'permintaan_tahunan' => 7097,
+    'biaya_pemesanan' => 28000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 223,
+],
+[
+    'id_eoq' => 156,
+    
+    'id_produk' => 156,
+    'permintaan_tahunan' => 21295,
+    'biaya_pemesanan' => 31000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 469,
+],
+[
+    'id_eoq' => 157,
+    
+    'id_produk' => 157,
+    'permintaan_tahunan' => 32477,
+    'biaya_pemesanan' => 100000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 1140,
+],
+[
+    'id_eoq' => 158,
+    
+    'id_produk' => 158,
+    'permintaan_tahunan' => 20546,
+    'biaya_pemesanan' => 11000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 238,
+],
+[
+    'id_eoq' => 159,
+    
+    'id_produk' => 159,
+    'permintaan_tahunan' => 35991,
+    'biaya_pemesanan' => 63000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 805,
+],
+[
+    'id_eoq' => 160,
+    
+    'id_produk' => 160,
+    'permintaan_tahunan' => 48643,
+    'biaya_pemesanan' => 69000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 916,
+],
+[
+    'id_eoq' => 161,
+    
+    'id_produk' => 161,
+    'permintaan_tahunan' => 47149,
+    'biaya_pemesanan' => 53000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 790,
+],
+[
+    'id_eoq' => 162,
+    
+    'id_produk' => 162,
+    'permintaan_tahunan' => 12951,
+    'biaya_pemesanan' => 64000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 743,
+],
+[
+    'id_eoq' => 163,
+    
+    'id_produk' => 163,
+    'permintaan_tahunan' => 17942,
+    'biaya_pemesanan' => 30000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 392,
+],
+[
+    'id_eoq' => 164,
+    
+    'id_produk' => 164,
+    'permintaan_tahunan' => 15302,
+    'biaya_pemesanan' => 44000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 439,
+],
+[
+    'id_eoq' => 165,
+    
+    'id_produk' => 165,
+    'permintaan_tahunan' => 28028,
+    'biaya_pemesanan' => 13000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 285,
+],
+[
+    'id_eoq' => 166,
+    
+    'id_produk' => 166,
+    'permintaan_tahunan' => 41084,
+    'biaya_pemesanan' => 51000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 1182,
+],
+[
+    'id_eoq' => 167,
+    
+    'id_produk' => 167,
+    'permintaan_tahunan' => 13018,
+    'biaya_pemesanan' => 69000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 507,
+],
+[
+    'id_eoq' => 168,
+    
+    'id_produk' => 168,
+    'permintaan_tahunan' => 6961,
+    'biaya_pemesanan' => 30000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 228,
+],
+[
+    'id_eoq' => 169,
+    
+    'id_produk' => 169,
+    'permintaan_tahunan' => 1074,
+    'biaya_pemesanan' => 53000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 169,
+],
+[
+    'id_eoq' => 170,
+    
+    'id_produk' => 170,
+    'permintaan_tahunan' => 15106,
+    'biaya_pemesanan' => 37000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 374,
+],
+[
+    'id_eoq' => 171,
+    
+    'id_produk' => 171,
+    'permintaan_tahunan' => 6319,
+    'biaya_pemesanan' => 81000,
+    'biaya_penyimpanan' => 3000,
+    'eoq' => 584,
+],
+[
+    'id_eoq' => 172,
+    
+    'id_produk' => 172,
+    'permintaan_tahunan' => 27976,
+    'biaya_pemesanan' => 86000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1551,
+],
+[
+    'id_eoq' => 173,
+    
+    'id_produk' => 173,
+    'permintaan_tahunan' => 33673,
+    'biaya_pemesanan' => 61000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1433,
+],
+[
+    'id_eoq' => 174,
+    
+    'id_produk' => 174,
+    'permintaan_tahunan' => 12437,
+    'biaya_pemesanan' => 42000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 341,
+],
+[
+    'id_eoq' => 175,
+    
+    'id_produk' => 175,
+    'permintaan_tahunan' => 46685,
+    'biaya_pemesanan' => 83000,
+    'biaya_penyimpanan' => 5000,
+    'eoq' => 1245,
+],
+[
+    'id_eoq' => 176,
+    
+    'id_produk' => 176,
+    'permintaan_tahunan' => 43628,
+    'biaya_pemesanan' => 30000,
+    'biaya_penyimpanan' => 9000,
+    'eoq' => 539,
+],
+[
+    'id_eoq' => 177,
+    
+    'id_produk' => 177,
+    'permintaan_tahunan' => 38281,
+    'biaya_pemesanan' => 99000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 1377,
+],
+[
+    'id_eoq' => 178,
+    
+    'id_produk' => 178,
+    'permintaan_tahunan' => 46993,
+    'biaya_pemesanan' => 10000,
+    'biaya_penyimpanan' => 4000,
+    'eoq' => 485,
+],
+[
+    'id_eoq' => 179,
+    
+    'id_produk' => 179,
+    'permintaan_tahunan' => 9815,
+    'biaya_pemesanan' => 32000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 280,
+],
+[
+    'id_eoq' => 180,
+    
+    'id_produk' => 180,
+    'permintaan_tahunan' => 24218,
+    'biaya_pemesanan' => 16000,
+    'biaya_penyimpanan' => 10000,
+    'eoq' => 278,
+],
+[
+    'id_eoq' => 181,
+    
+    'id_produk' => 181,
+    'permintaan_tahunan' => 7876,
+    'biaya_pemesanan' => 53000,
+    'biaya_penyimpanan' => 7000,
+    'eoq' => 345,
+],
+[
+    'id_eoq' => 182,
+    
+    'id_produk' => 182,
+    'permintaan_tahunan' => 35863,
+    'biaya_pemesanan' => 74000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 2304,
+],
+[
+    'id_eoq' => 183,
+    
+    'id_produk' => 183,
+    'permintaan_tahunan' => 43332,
+    'biaya_pemesanan' => 65000,
+    'biaya_penyimpanan' => 8000,
+    'eoq' => 839,
+],
+[
+    'id_eoq' => 184,
+    
+    'id_produk' => 184,
+    'permintaan_tahunan' => 46375,
+    'biaya_pemesanan' => 72000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 2584,
+],
+[
+    'id_eoq' => 185,
+    
+    'id_produk' => 185,
+    'permintaan_tahunan' => 33769,
+    'biaya_pemesanan' => 96000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 1040,
+],
+[
+    'id_eoq' => 186,
+    
+    'id_produk' => 186,
+    'permintaan_tahunan' => 47310,
+    'biaya_pemesanan' => 54000,
+    'biaya_penyimpanan' => 2000,
+    'eoq' => 1598,
+],
+[
+    'id_eoq' => 187,
+    
+    'id_produk' => 187,
+    'permintaan_tahunan' => 43334,
+    'biaya_pemesanan' => 75000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 2550,
+],
+[
+    'id_eoq' => 188,
+    
+    'id_produk' => 188,
+    'permintaan_tahunan' => 32199,
+    'biaya_pemesanan' => 95000,
+    'biaya_penyimpanan' => 6000,
+    'eoq' => 1010,
+],
+[
+    'id_eoq' => 189,
+    
+    'id_produk' => 189,
+    'permintaan_tahunan' => 44072,
+    'biaya_pemesanan' => 41000,
+    'biaya_penyimpanan' => 1000,
+    'eoq' => 1901,
+],
