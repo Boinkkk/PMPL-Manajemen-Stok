@@ -2,189 +2,172 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SupplierExport;
+use App\Http\Requests\StoreSupplierRequest;
+use App\Http\Requests\UpdateSupplierRequest;
+use App\Models\Pengguna;
 use App\Models\Supplier;
+use App\Services\SupplierService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class SupplierController extends Controller
 {
+    /**
+     * Buat controller supplier.
+     */
+    public function __construct(
+        private readonly SupplierService $supplierService,
+    ) {}
+
+    /**
+     * Tampilkan daftar supplier.
+     */
     public function index(Request $request): View
     {
-        $search = $request->string('search')->toString();
+        $filters = $request->only(['q', 'sort']);
 
-        $suppliers = Supplier::query()
-            ->when($search !== '', function ($query) use ($search) {
-                $query->where('nama_supplier', 'like', '%'.$search.'%')
-                    ->orWhere('kode_supplier', 'like', '%'.$search.'%')
-                    ->orWhere('alamat', 'like', '%'.$search.'%')
-                    ->orWhere('telepon', 'like', '%'.$search.'%');
-            })
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return view('pages.supplier.index', compact('search', 'suppliers'));
+        return view('supplier.index', [
+            'suppliers' => $this->supplierService->paginate($filters),
+            'summary' => $this->supplierService->summary(),
+            'filters' => $filters,
+            'service' => $this->supplierService,
+        ]);
     }
 
-    public function staffGudang(Request $request): View
+    /**
+     * Tampilkan form tambah supplier.
+     */
+    public function create(): View
     {
-        $search = $request->string('search')->toString();
-
-        $suppliers = Supplier::query()
-            ->when($search !== '', function ($query) use ($search) {
-                $query->where('nama_supplier', 'like', '%'.$search.'%')
-                    ->orWhere('kode_supplier', 'like', '%'.$search.'%')
-                    ->orWhere('kontak_person', 'like', '%'.$search.'%')
-                    ->orWhere('alamat', 'like', '%'.$search.'%')
-                    ->orWhere('telepon', 'like', '%'.$search.'%');
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('pages.staff-gudang.supplier.index', compact('search', 'suppliers'));
+        return view('supplier.create', [
+            'kodeSupplier' => $this->supplierService->generateKodeSupplier(),
+        ]);
     }
 
-    public function store(Request $request): JsonResponse|RedirectResponse
+    /**
+     * Simpan supplier baru.
+     */
+    public function store(StoreSupplierRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'kode_supplier' => 'required|string|max:20|unique:supplier',
-            'nama_supplier' => 'required|string|max:150',
-            'alamat' => 'nullable|string',
-            'telepon' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:100',
-            'kontak_person' => 'nullable|string|max:100',
+        /** @var Pengguna $pengguna */
+        $pengguna = $request->user();
+
+        $supplier = $this->supplierService->store($request->validated(), $pengguna, $request->ip());
+
+        return redirect()
+            ->route('supplier.show', $supplier)
+            ->with('success', 'Supplier berhasil ditambahkan.');
+    }
+
+    /**
+     * Tampilkan detail supplier.
+     */
+    public function show(Request $request, Supplier $supplier): View
+    {
+        return view('supplier.show', [
+            'supplier' => $supplier,
+            'stats' => $this->supplierService->supplierStats($supplier),
+            'transactions' => $this->supplierService->transactionHistory($supplier, $request->only(['tanggal_mulai', 'tanggal_selesai', 'q_transaksi'])),
+            'products' => $this->supplierService->suppliedProducts($supplier),
+            'creatorName' => $this->supplierService->creatorName($supplier),
+            'hasTransactions' => $this->supplierService->hasTransactions($supplier),
+            'filters' => $request->only(['tanggal_mulai', 'tanggal_selesai', 'q_transaksi']),
+            'service' => $this->supplierService,
+        ]);
+    }
+
+    /**
+     * Tampilkan form edit supplier.
+     */
+    public function edit(Supplier $supplier): View
+    {
+        return view('supplier.edit', [
+            'supplier' => $supplier,
+        ]);
+    }
+
+    /**
+     * Perbarui data supplier.
+     */
+    public function update(UpdateSupplierRequest $request, Supplier $supplier): RedirectResponse
+    {
+        /** @var Pengguna $pengguna */
+        $pengguna = $request->user();
+
+        $this->supplierService->update($supplier, $request->validated(), $pengguna, $request->ip());
+
+        return redirect()
+            ->route('supplier.show', $supplier)
+            ->with('success', 'Supplier berhasil diperbarui.');
+    }
+
+    /**
+     * Hapus supplier jika belum pernah digunakan.
+     */
+    public function destroy(Request $request, Supplier $supplier): RedirectResponse
+    {
+        /** @var Pengguna $pengguna */
+        $pengguna = $request->user();
+
+        if (! $pengguna->isAdministrator()) {
+            abort(403);
+        }
+
+        if (! $this->supplierService->destroy($supplier, $pengguna, $request->ip())) {
+            return back()->with('error', 'Supplier tidak dapat dihapus karena memiliki riwayat transaksi.');
+        }
+
+        return redirect()
+            ->route('supplier.index')
+            ->with('success', 'Supplier berhasil dihapus.');
+    }
+
+    /**
+     * Cek duplikasi supplier untuk validasi AJAX.
+     */
+    public function checkDuplicate(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'nama_supplier' => ['nullable', 'string', 'max:150'],
+            'email' => ['nullable', 'string', 'max:100'],
+            'ignore_id' => ['nullable', 'integer'],
         ]);
 
-        $validated['id_supplier'] = (Supplier::max('id_supplier') ?? 0) + 1;
-
-        Supplier::create($validated);
-
-        if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 'Supplier berhasil ditambahkan']);
-        }
-
-        return redirect()->route('supplier.index')->with('success', 'Supplier berhasil ditambahkan');
-    }
-
-    public function show(int $id): JsonResponse|RedirectResponse
-    {
-        $supplier = Supplier::findOrFail($id);
-
-        // Ambil produk yang pernah dibeli dari supplier ini melalui stok_masuk
-        $produkList = DB::table('produk')
-            ->join('detail_stok_masuk', 'produk.id_produk', '=', 'detail_stok_masuk.id_produk')
-            ->join('stok_masuk', 'detail_stok_masuk.id_stok_masuk', '=', 'stok_masuk.id_stok_masuk')
-            ->where('stok_masuk.id_supplier', $id)
-            ->select('produk.nama_produk', 'produk.kode_produk')
-            ->distinct()
-            ->get();
-
-        if (request()->ajax()) {
-            return response()->json([
-                'id_supplier' => $supplier->id_supplier,
-                'kode_supplier' => $supplier->kode_supplier,
-                'nama_supplier' => $supplier->nama_supplier,
-                'alamat' => $supplier->alamat,
-                'telepon' => $supplier->telepon,
-                'email' => $supplier->email,
-                'kontak_person' => $supplier->kontak_person,
-                'produk' => $produkList,
-            ]);
-        }
-
-        return redirect()->route('supplier.index');
-    }
-
-    public function update(Request $request, int $id): JsonResponse|RedirectResponse
-    {
-        $supplier = Supplier::findOrFail($id);
-
-        $validated = $request->validate([
-            'kode_supplier' => 'required|string|max:20|unique:supplier,kode_supplier,'.$id.',id_supplier',
-            'nama_supplier' => 'required|string|max:150',
-            'alamat' => 'nullable|string',
-            'telepon' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:100',
-            'kontak_person' => 'nullable|string|max:100',
+        return response()->json([
+            'success' => true,
+            'message' => 'Status duplikasi berhasil diperiksa.',
+            'data' => $this->supplierService->duplicateStatus(
+                $data['nama_supplier'] ?? null,
+                $data['email'] ?? null,
+                isset($data['ignore_id']) ? (int) $data['ignore_id'] : null,
+            ),
         ]);
+    }
 
-        $supplier->update($validated);
+    /**
+     * Export daftar supplier ke Excel.
+     */
+    public function export(Request $request): BinaryFileResponse
+    {
+        /** @var Pengguna $pengguna */
+        $pengguna = $request->user();
 
-        if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 'Supplier berhasil diupdate']);
+        if (! $pengguna->isAdministrator()) {
+            abort(403);
         }
 
-        return redirect()->route('supplier.index')->with('success', 'Supplier berhasil diupdate');
-    }
+        $filters = $request->only(['q', 'sort']);
+        $rows = $this->supplierService->exportRows($filters);
+        $this->supplierService->auditExport($filters, $rows->count(), $pengguna, $request->ip());
 
-    public function destroy(int $id): JsonResponse|RedirectResponse
-    {
-        $supplier = Supplier::findOrFail($id);
-
-        // Cek apakah supplier memiliki relasi stok_masuk
-        if ($supplier->stokMasuk()->count() > 0) {
-            if (request()->ajax()) {
-                return response()->json(['success' => false, 'message' => 'Supplier tidak dapat dihapus karena memiliki transaksi stok masuk'], 400);
-            }
-
-            return back()->with('error', 'Supplier tidak dapat dihapus karena memiliki transaksi stok masuk');
-        }
-
-        $supplier->delete();
-
-        if (request()->ajax()) {
-            return response()->json(['success' => true, 'message' => 'Supplier berhasil dihapus']);
-        }
-
-        return redirect()->route('supplier.index')->with('success', 'Supplier berhasil dihapus');
-    }
-
-    public function getAllProduk(): JsonResponse
-    {
-        // Ambil semua produk yang terhubung dengan supplier melalui stok_masuk
-        $suppliersWithProduk = DB::table('supplier')
-            ->leftJoin('stok_masuk', 'supplier.id_supplier', '=', 'stok_masuk.id_supplier')
-            ->leftJoin('detail_stok_masuk', 'stok_masuk.id_stok_masuk', '=', 'detail_stok_masuk.id_stok_masuk')
-            ->leftJoin('produk', 'detail_stok_masuk.id_produk', '=', 'produk.id_produk')
-            ->select(
-                'supplier.id_supplier',
-                'supplier.nama_supplier',
-                'produk.id_produk',
-                'produk.nama_produk',
-                'produk.kode_produk'
-            )
-            ->get()
-            ->groupBy('id_supplier')
-            ->map(function ($items, $key) {
-                return [
-                    'id_supplier' => $key,
-                    'nama_supplier' => $items->first()->nama_supplier,
-                    'produk' => $items->filter(function ($item) {
-                        return ! is_null($item->id_produk);
-                    })->map(function ($item) {
-                        return $item->nama_produk;
-                    })->values()->toArray(),
-                ];
-            })
-            ->values();
-
-        return response()->json($suppliersWithProduk);
-    }
-
-    // Untuk menampilkan form tambah supplier
-    public function create(): RedirectResponse
-    {
-        return redirect()->route('supplier.index');
-    }
-
-    // Untuk menampilkan form edit supplier
-    public function edit(int $id): RedirectResponse
-    {
-        Supplier::findOrFail($id);
-
-        return redirect()->route('supplier.index');
+        return Excel::download(
+            new SupplierExport($rows, $this->supplierService->summary(), $filters),
+            'data-supplier-'.now('Asia/Jakarta')->format('Ymd').'.xlsx',
+        );
     }
 }
