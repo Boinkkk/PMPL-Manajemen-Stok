@@ -1,97 +1,86 @@
-@extends('layouts.app')
-
-@section('title', 'Daftar Retur Produk')
-
-@section('content')
-<div class="content-card p-4 mb-4">
-    <div class="content-header d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
-        <div>
-            <h4 class="mb-1">Daftar Retur Produk</h4>
-            <p class="text-muted mb-0">Kelola pengajuan retur distributor dan status persetujuan.</p>
+<x-layouts.app title="Daftar Retur Produk">
+    <section class="flex flex-col gap-5">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h2 class="text-2xl font-semibold">Daftar Retur Produk</h2>
+                <p class="text-sm text-jamu-muted">Kelola pengajuan retur distributor dan status persetujuan.</p>
+            </div>
+            <a href="{{ route('retur.create') }}" class="rounded-md bg-jamu-secondary px-4 py-2 text-sm font-semibold text-jamu-primary-dark hover:bg-jamu-secondary-light">
+                Ajukan Retur
+            </a>
         </div>
-        <a href="{{ route('retur.create') }}" class="btn btn-gold btn-sm">
-            <i class="fa-solid fa-plus me-2"></i> Ajukan Retur
-        </a>
-    </div>
 
-    <div class="row align-items-center mb-4">
-        <div class="col-lg-8">
-            <form action="{{ route('retur.index') }}" method="GET" class="d-flex gap-2">
-                <div class="input-icon w-100">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari produk, distributor, atau pelapor..." class="form-control search-input">
+        <div class="grid gap-3 md:grid-cols-[1fr_auto]">
+            <form action="{{ route('retur.index') }}" method="GET" class="rounded-md border border-jamu-border bg-jamu-surface p-4">
+                <div class="grid gap-3 md:grid-cols-[1fr_180px_auto_auto]">
+                    <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari produk, distributor, atau pelapor..." class="rounded-md border-jamu-border bg-white px-3 py-2 text-sm">
+                    <select name="status" class="rounded-md border-jamu-border bg-white px-3 py-2 text-sm">
+                        <option value="">Semua Status</option>
+                        <option value="pending" @selected($status === 'pending')>Pending</option>
+                        <option value="disetujui" @selected($status === 'disetujui')>Disetujui</option>
+                        <option value="ditolak" @selected($status === 'ditolak')>Ditolak</option>
+                    </select>
+                    <button type="submit" class="rounded-md bg-jamu-primary px-4 py-2 text-sm font-semibold text-white hover:bg-jamu-primary-dark">Cari</button>
+                    <a href="{{ route('retur.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-center text-sm hover:bg-jamu-bg">Reset</a>
                 </div>
-                <select name="status" class="form-select status-filter">
-                    <option value="">Semua</option>
-                    <option value="pending" {{ $status === 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="disetujui" {{ $status === 'disetujui' ? 'selected' : '' }}>Disetujui</option>
-                    <option value="ditolak" {{ $status === 'ditolak' ? 'selected' : '' }}>Ditolak</option>
-                </select>
-                <button type="submit" class="btn btn-outline-secondary-custom">Cari</button>
             </form>
+
+            <div class="rounded-md border border-jamu-border bg-jamu-surface p-4">
+                <p class="text-sm text-jamu-muted">Total Retur</p>
+                <p class="mt-1 text-2xl font-semibold">{{ number_format($returs->total(), 0, ',', '.') }}</p>
+            </div>
         </div>
 
-        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-            <span class="badge badge-total py-2 px-3">Total Retur: {{ $returs->total() }}</span>
-        </div>
-    </div>
-
-    <div class="table-responsive">
-        <table class="table table-modern align-middle mb-0 w-100">
-            <thead>
+        <x-table>
+            <thead class="bg-jamu-secondary-light/40 text-left text-xs uppercase tracking-wide text-jamu-muted">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Distributor</th>
-                    <th scope="col">Produk</th>
-                    <th scope="col">Jumlah</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Tanggal Lapor</th>
-                    <th scope="col" class="text-center">Aksi</th>
+                    <th class="px-4 py-3">ID</th>
+                    <th class="px-4 py-3">Distributor</th>
+                    <th class="px-4 py-3">Produk</th>
+                    <th class="px-4 py-3 text-right">Jumlah</th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">Tanggal Lapor</th>
+                    <th class="px-4 py-3 text-right">Aksi</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-jamu-border">
                 @forelse($returs as $retur)
-                    <tr>
-                        <td class="fw-semibold text-dark">#{{ $retur->id_retur }}</td>
-                        <td class="text-dark">{{ $retur->distributor?->nama_distributor ?? 'N/A' }}</td>
-                        <td class="text-dark">{{ $retur->produk?->nama_produk ?? 'N/A' }}</td>
-                        <td class="text-muted">{{ $retur->jumlah_retur }}</td>
-                        <td>
+                    <tr class="hover:bg-jamu-bg">
+                        <td class="px-4 py-3 font-medium">#{{ $retur->id_retur }}</td>
+                        <td class="px-4 py-3">{{ $retur->distributor?->nama_distributor ?? '-' }}</td>
+                        <td class="px-4 py-3">{{ $retur->produk?->nama_produk ?? '-' }}</td>
+                        <td class="px-4 py-3 text-right">{{ number_format($retur->jumlah_retur, 0, ',', '.') }}</td>
+                        <td class="px-4 py-3">
                             @if($retur->status === 'pending')
-                                <span class="badge bg-warning text-dark">Pending</span>
+                                <span class="rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-800">Pending</span>
                             @elseif($retur->status === 'disetujui')
-                                <span class="badge bg-success">Disetujui</span>
+                                <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Disetujui</span>
                             @else
-                                <span class="badge bg-danger">Ditolak</span>
+                                <span class="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-800">Ditolak</span>
                             @endif
                         </td>
-                        <td class="text-muted">{{ $retur->tanggal_lapor?->format('Y-m-d H:i') }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('retur.show', $retur) }}" class="btn btn-sm btn-outline-primary me-2">
-                                <i class="fa-solid fa-eye me-1"></i> Detail
-                            </a>
-                            @if($retur->status === 'pending')
-                                <form action="{{ route('retur.destroy', $retur) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus retur pending?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i class="fa-solid fa-trash me-1"></i> Hapus
-                                    </button>
-                                </form>
-                            @endif
+                        <td class="px-4 py-3 text-jamu-muted">{{ $retur->tanggal_lapor?->locale('id')->translatedFormat('d F Y H:i') ?? '-' }}</td>
+                        <td class="px-4 py-3">
+                            <div class="flex justify-end gap-2">
+                                <a href="{{ route('retur.show', $retur) }}" class="rounded-md border border-jamu-border px-3 py-1.5 text-sm hover:bg-jamu-bg">Detail</a>
+                                @if($retur->status === 'pending')
+                                    <form action="{{ route('retur.destroy', $retur) }}" method="POST" onsubmit="return confirm('Hapus retur pending ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="rounded-md border border-red-200 px-3 py-1.5 text-sm text-red-700 hover:bg-red-50">Hapus</button>
+                                    </form>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center text-muted py-4">Belum ada retur produk.</td>
+                        <td colspan="7" class="px-4 py-10 text-center text-jamu-muted">Belum ada retur produk.</td>
                     </tr>
                 @endforelse
             </tbody>
-        </table>
-    </div>
+        </x-table>
 
-    <div class="mt-4 d-flex justify-content-end">
-        {{ $returs->links('pagination::bootstrap-5') }}
-    </div>
-</div>
-@endsection
+        {{ $returs->links() }}
+    </section>
+</x-layouts.app>

@@ -73,6 +73,9 @@
                         <a href="{{ route('stok-keluar.index') }}" class="{{ $linkClass }} {{ request()->routeIs('stok-keluar*') ? $activeClass : $inactiveClass }}">
                             <span class="w-5 text-center">SK</span> Stok Keluar
                         </a>
+                        <a href="{{ route('retur.index') }}" class="{{ $linkClass }} {{ request()->routeIs('retur*') ? $activeClass : $inactiveClass }}">
+                            <span class="w-5 text-center">R</span> Retur Produk
+                        </a>
                     </div>
 
                     <div class="space-y-1">
