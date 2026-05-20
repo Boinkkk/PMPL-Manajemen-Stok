@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['id_batch', 'id_produk', 'nomor_batch', 'tanggal_produksi', 'tanggal_expired', 'keterangan'])]
 class Batch extends Model
 {
     use HasFactory;
@@ -22,6 +20,8 @@ class Batch extends Model
     public $incrementing = false;
 
     protected $keyType = 'int';
+
+    protected $fillable = ['id_batch', 'id_produk', 'nomor_batch', 'tanggal_produksi', 'tanggal_expired', 'keterangan'];
 
     /**
      * Get the attributes that should be cast.
