@@ -9,7 +9,7 @@
             <h4 class="mb-1">Tambah Satuan Baru</h4>
             <p class="text-muted mb-0">Isi detail satuan untuk menambah daftar satuan yang tersedia.</p>
         </div>
-        <a href="{{ route('satuan.index') }}" class="btn btn-outline-secondary-custom">
+        <a href="{{ route('satuan.index') }}" class="btn btn-back">
             <i class="fa-solid fa-arrow-left me-2"></i> Kembali
         </a>
     </div>
@@ -37,7 +37,9 @@
             <button type="submit" class="btn btn-gold">
                 <i class="fa-solid fa-save me-2"></i> Simpan Satuan
             </button>
-            <a href="{{ route('satuan.index') }}" class="btn btn-outline-secondary-custom">Batal</a>
+            <a href="{{ route('satuan.index') }}" class="btn btn-back">
+                <i class="fa-solid fa-xmark me-2"></i> Batal
+            </a>
         </div>
     </form>
 </div>

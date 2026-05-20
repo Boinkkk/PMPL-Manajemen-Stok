@@ -36,7 +36,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Nama Kategori</th>
                     <th scope="col">Deskripsi</th>
-                    <th scope="col" class="text-center">Aksi</th>
+                    <th scope="col" class="text-center table-action-heading">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,17 +45,19 @@
                         <td>{{ $kategoris->firstItem() + $index }}</td>
                         <td class="fw-semibold text-dark">{{ $kategori->nama_kategori }}</td>
                         <td class="text-muted">{{ $kategori->deskripsi ?? '-' }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('kategori.edit', $kategori) }}" class="btn btn-sm btn-outline-primary me-2">
-                                <i class="fa-solid fa-pencil me-1"></i> Edit
-                            </a>
-                            <form action="{{ route('kategori.destroy', $kategori) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    <i class="fa-solid fa-trash me-1"></i> Hapus
-                                </button>
-                            </form>
+                        <td class="text-center table-action-cell">
+                            <div class="table-actions">
+                                <a href="{{ route('kategori.edit', $kategori) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fa-solid fa-pencil me-1"></i> Edit
+                                </a>
+                                <form action="{{ route('kategori.destroy', $kategori) }}" method="POST" class="m-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="fa-solid fa-trash me-1"></i> Hapus
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty

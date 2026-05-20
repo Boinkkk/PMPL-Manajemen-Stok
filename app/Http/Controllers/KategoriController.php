@@ -2,11 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuditTrail;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KategoriController extends Controller
 {
+    /**
+     * @param  array<string, mixed>|null  $dataLama
+     * @param  array<string, mixed>|null  $dataBaru
+     */
+    private function recordAudit(Request $request, string $aksi, ?array $dataLama = null, ?array $dataBaru = null): void
+    {
+        AuditTrail::create([
+            'aksi' => $aksi,
+            'modul' => 'kategori',
+            'data_lama' => $dataLama,
+            'data_baru' => $dataBaru,
+            'ip_address' => $request->ip(),
+            'waktu_aksi' => now(),
+        ]);
+    }
+
     public function index(Request $request)
     {
         $search = $request->query('search');
@@ -14,9 +32,9 @@ class KategoriController extends Controller
         $kategoris = Kategori::when($search, function ($query, $search) {
             return $query->where('nama_kategori', 'like', "%{$search}%");
         })
-        ->orderBy('created_at', 'asc')
-        ->paginate(10)
-        ->withQueryString();
+            ->orderBy('created_at', 'asc')
+            ->paginate(10)
+            ->withQueryString();
 
         return view('kategori.index', compact('kategoris', 'search'));
     }
@@ -33,7 +51,15 @@ class KategoriController extends Controller
             'deskripsi' => 'nullable|string',
         ]);
 
-        Kategori::create($validated);
+        DB::transaction(function () use ($request, $validated): void {
+            $kategori = Kategori::create($validated);
+
+            $this->recordAudit($request, 'create', null, $kategori->only([
+                'id_kategori',
+                'nama_kategori',
+                'deskripsi',
+            ]));
+        });
 
         return redirect()->route('kategori.index')
             ->with('success', 'Kategori berhasil ditambahkan.');
@@ -51,15 +77,39 @@ class KategoriController extends Controller
             'deskripsi' => 'nullable|string',
         ]);
 
-        $kategori->update($validated);
+        DB::transaction(function () use ($kategori, $request, $validated): void {
+            $dataLama = $kategori->only([
+                'id_kategori',
+                'nama_kategori',
+                'deskripsi',
+            ]);
+
+            $kategori->update($validated);
+
+            $this->recordAudit($request, 'update', $dataLama, $kategori->only([
+                'id_kategori',
+                'nama_kategori',
+                'deskripsi',
+            ]));
+        });
 
         return redirect()->route('kategori.index')
             ->with('success', 'Kategori berhasil diperbarui.');
     }
 
-    public function destroy(Kategori $kategori)
+    public function destroy(Request $request, Kategori $kategori)
     {
-        $kategori->delete();
+        DB::transaction(function () use ($kategori, $request): void {
+            $dataLama = $kategori->only([
+                'id_kategori',
+                'nama_kategori',
+                'deskripsi',
+            ]);
+
+            $kategori->delete();
+
+            $this->recordAudit($request, 'delete', $dataLama);
+        });
 
         return redirect()->route('kategori.index')
             ->with('success', 'Kategori berhasil dihapus.');

@@ -9,7 +9,7 @@
             <h4 class="mb-1">Tambah Kategori Baru</h4>
             <p class="text-muted mb-0">Isi detail kategori untuk memudahkan pengelolaan stok.</p>
         </div>
-        <a href="{{ route('kategori.index') }}" class="btn btn-outline-secondary-custom">
+        <a href="{{ route('kategori.index') }}" class="btn btn-back">
             <i class="fa-solid fa-arrow-left me-2"></i> Kembali
         </a>
     </div>
@@ -48,7 +48,9 @@
             <button type="submit" class="btn btn-gold">
                 <i class="fa-solid fa-save me-2"></i> Simpan Kategori
             </button>
-            <a href="{{ route('kategori.index') }}" class="btn btn-outline-secondary-custom">Batal</a>
+            <a href="{{ route('kategori.index') }}" class="btn btn-back">
+                <i class="fa-solid fa-xmark me-2"></i> Batal
+            </a>
         </div>
     </form>
 </div>

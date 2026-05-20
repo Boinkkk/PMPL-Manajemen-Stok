@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['id_pengguna', 'aksi', 'modul', 'data_lama', 'data_baru', 'ip_address', 'waktu_aksi'])]
 class AuditTrail extends Model
 {
     use HasFactory;
@@ -19,6 +17,8 @@ class AuditTrail extends Model
     protected $table = 'audit_trail';
 
     protected $primaryKey = 'id_audit';
+
+    protected $fillable = ['id_pengguna', 'aksi', 'modul', 'data_lama', 'data_baru', 'ip_address', 'waktu_aksi'];
 
     /**
      * Get the attributes that should be cast.

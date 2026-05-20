@@ -37,7 +37,7 @@
                     <th scope="col">Nama Satuan</th>
                     <th scope="col">Singkatan</th>
                     <th scope="col">Tanggal Dibuat</th>
-                    <th scope="col" class="text-center">Aksi</th>
+                    <th scope="col" class="text-center table-action-heading">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,17 +47,19 @@
                         <td class="fw-semibold text-dark">{{ $satuan->nama_satuan }}</td>
                         <td class="text-muted">{{ $satuan->singkatan }}</td>
                         <td class="text-muted">{{ $satuan->created_at ? $satuan->created_at->format('d M Y') : '-' }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('satuan.edit', $satuan) }}" class="btn btn-sm btn-outline-primary me-2">
-                                <i class="fa-solid fa-pencil me-1"></i> Edit
-                            </a>
-                            <form action="{{ route('satuan.destroy', $satuan) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus satuan ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    <i class="fa-solid fa-trash me-1"></i> Hapus
-                                </button>
-                            </form>
+                        <td class="text-center table-action-cell">
+                            <div class="table-actions">
+                                <a href="{{ route('satuan.edit', $satuan) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fa-solid fa-pencil me-1"></i> Edit
+                                </a>
+                                <form action="{{ route('satuan.destroy', $satuan) }}" method="POST" class="m-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus satuan ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="fa-solid fa-trash me-1"></i> Hapus
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty

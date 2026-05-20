@@ -2,12 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuditTrail;
 use App\Models\Satuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class SatuanController extends Controller
 {
+    /**
+     * @param  array<string, mixed>|null  $dataLama
+     * @param  array<string, mixed>|null  $dataBaru
+     */
+    private function recordAudit(Request $request, string $aksi, ?array $dataLama = null, ?array $dataBaru = null): void
+    {
+        AuditTrail::create([
+            'aksi' => $aksi,
+            'modul' => 'satuan',
+            'data_lama' => $dataLama,
+            'data_baru' => $dataBaru,
+            'ip_address' => $request->ip(),
+            'waktu_aksi' => now(),
+        ]);
+    }
+
     public function index(Request $request)
     {
         $search = $request->query('search');
@@ -16,9 +34,9 @@ class SatuanController extends Controller
             return $query->where('nama_satuan', 'like', "%{$search}%")
                 ->orWhere('singkatan', 'like', "%{$search}%");
         })
-        ->orderBy('created_at', 'asc')
-        ->paginate(10)
-        ->withQueryString();
+            ->orderBy('created_at', 'asc')
+            ->paginate(10)
+            ->withQueryString();
 
         return view('satuan.index', compact('satuans', 'search'));
     }
@@ -40,7 +58,15 @@ class SatuanController extends Controller
             'singkatan.unique' => 'Singkatan sudah ada, gunakan singkatan lain',
         ]);
 
-        Satuan::create($validated);
+        DB::transaction(function () use ($request, $validated): void {
+            $satuan = Satuan::create($validated);
+
+            $this->recordAudit($request, 'create', null, $satuan->only([
+                'id_satuan',
+                'nama_satuan',
+                'singkatan',
+            ]));
+        });
 
         return redirect()->route('satuan.index')
             ->with('success', 'Satuan berhasil ditambahkan.');
@@ -77,16 +103,40 @@ class SatuanController extends Controller
             'singkatan.unique' => 'Singkatan sudah ada, gunakan singkatan lain',
         ]);
 
-        $satuan->update($validated);
+        DB::transaction(function () use ($satuan, $request, $validated): void {
+            $dataLama = $satuan->only([
+                'id_satuan',
+                'nama_satuan',
+                'singkatan',
+            ]);
+
+            $satuan->update($validated);
+
+            $this->recordAudit($request, 'update', $dataLama, $satuan->only([
+                'id_satuan',
+                'nama_satuan',
+                'singkatan',
+            ]));
+        });
 
         return redirect()->route('satuan.index')
             ->with('success', 'Satuan berhasil diperbarui.');
     }
 
-    public function destroy($id_satuan)
+    public function destroy(Request $request, $id_satuan)
     {
         $satuan = Satuan::findOrFail($id_satuan);
-        $satuan->delete();
+        DB::transaction(function () use ($satuan, $request): void {
+            $dataLama = $satuan->only([
+                'id_satuan',
+                'nama_satuan',
+                'singkatan',
+            ]);
+
+            $satuan->delete();
+
+            $this->recordAudit($request, 'delete', $dataLama);
+        });
 
         return redirect()->route('satuan.index')
             ->with('success', 'Satuan berhasil dihapus.');

@@ -3,104 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard Kategori')</title>
+    <title>@yield('title', 'Dashboard') - Sistem Informasi Stok dan Distribusi Jamu Madura</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-VkQtJ1/sP76BMOjQtaWpZprYERnv2MW4NppjHAcELq7bsvDOe7z5Y+ZcRQen5m0J" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.4/css/all.min.css" integrity="sha512-pb5ZiQIxZg6R6dHT1sKdb9uMp6pR/YdC7nZJfu8l1WJ2P1schu7R9XqVVAxBNH5JGvni5iYx3rJkQyLRhS3c0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
     <style>
         :root {
-            --brand-brown: #5D3A1A;
-            --brand-gold: #D4A017;
-            --page-bg: #F8F9FC;
-            --card-white: #FFFFFF;
-            --text-dark: #2C3E50;
-            --text-muted: #7A8A99;
+            --brand-brown: #7a3d00;
+            --brand-brown-dark: #6b3500;
+            --brand-gold: #ffb300;
+            --brand-orange: #ee7b00;
+            --page-bg: #ffffff;
+            --card-white: #ffffff;
+            --text-dark: #111111;
+            --text-muted: #6b6b6b;
         }
 
         body {
             min-height: 100vh;
             margin: 0;
-            background: var(--page-bg);
+            background: #faf7f0;
             color: var(--text-dark);
-            font-family: 'Inter', 'Poppins', sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
         }
 
         .sidebar {
             position: fixed;
-            top: 0;
+            top: 66px;
             left: 0;
-            width: 280px;
-            min-height: 100vh;
-            background: linear-gradient(180deg, #5D3A1A 0%, #3f2a12 100%);
-            padding: 2rem 1.6rem;
+            width: 298px;
+            min-height: calc(100vh - 66px);
+            background: var(--brand-brown-dark);
+            padding: 0;
             overflow-y: auto;
             z-index: 1050;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.17);
+            box-shadow: none;
         }
 
         .sidebar .brand {
-            color: #fff;
+            display: block;
+            color: #ffcb38;
             text-decoration: none;
+            padding: 12px 28px 18px 36px;
         }
 
         .sidebar .brand h4 {
-            font-size: 1.45rem;
-            letter-spacing: 0.03em;
+            color: #ffcb38;
+            font-size: 1.35rem;
+            line-height: 1.25;
+            letter-spacing: 0;
+            text-transform: uppercase;
+            font-weight: 800;
         }
 
         .sidebar .brand small {
-            color: rgba(255, 255, 255, 0.75);
+            color: #ffcb38;
+            font-size: 0.86rem;
         }
 
         .sidebar-nav {
-            margin-top: 3rem;
+            margin-top: 0;
         }
 
         .sidebar-nav .nav-link {
-            color: rgba(255, 255, 255, 0.95);
-            padding: 0.95rem 1.25rem;
-            border-radius: 1rem;
-            margin-bottom: 0.7rem;
-            font-weight: 600;
-            transition: transform 0.2s ease, background 0.2s ease;
+            color: #ffcb38;
+            display: flex;
+            align-items: center;
+            padding: 0.93rem 2.2rem;
+            border-radius: 0;
+            margin-bottom: 0;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: background 0.2s ease, color 0.2s ease;
         }
 
         .sidebar-nav .nav-link.active,
         .sidebar-nav .nav-link:hover {
-            color: #2C3E50;
-            background: rgba(212, 160, 23, 0.95);
-            transform: translateX(4px);
+            color: #ffffff;
+            background: var(--brand-orange);
+            transform: none;
+            font-weight: 700;
         }
 
         .main-content {
-            margin-left: 280px;
+            margin-left: 298px;
             min-height: 100vh;
-            padding: 2rem 2rem 3rem 2rem;
-            background: #f4f6fb;
+            padding: 66px 0 0;
+            background: #faf7f0;
         }
 
         .page-navbar {
-            background: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1060;
+            background: var(--brand-brown);
             border: none;
-            min-height: 72px;
-            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
-            border-radius: 1rem;
-            padding: 0.9rem 1.25rem;
+            min-height: 66px;
+            box-shadow: none;
+            border-radius: 0;
+            padding: 0 12px 0 40px;
         }
 
         .page-navbar .navbar-brand {
             margin: 0;
-            font-size: 1.05rem;
-            font-weight: 700;
+            color: #ffcb38;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            min-width: 0;
+        }
+
+        .page-navbar .navbar-brand h5 {
+            max-width: min(54vw, 720px);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .app-logo-mark {
+            width: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff3d8;
+            font-size: 2rem;
+            flex-shrink: 0;
         }
 
         .page-navbar .btn-outline-secondary {
-            border-color: rgba(44, 62, 80, 0.14);
-            color: #2C3E50;
-            background: #fff;
-            min-width: 140px;
+            border-color: transparent;
+            color: #ffcb38;
+            background: transparent;
+            min-width: 190px;
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .page-navbar .btn-outline-secondary:hover,
+        .page-navbar .btn-outline-secondary:focus {
+            color: #ffcb38;
+            background: rgba(255, 255, 255, 0.06);
+            border-color: transparent;
         }
 
         .page-navbar .dropdown-menu {
@@ -110,17 +157,17 @@
 
         .content-card {
             background: var(--card-white);
-            border: 1px solid rgba(44, 62, 80, 0.08);
-            border-radius: 1.5rem;
-            box-shadow: 0 25px 50px rgba(44, 62, 80, 0.08);
+            border: 1px solid rgba(92, 51, 23, 0.1);
+            border-radius: 0.9rem;
+            box-shadow: 0 16px 36px rgba(63, 36, 18, 0.06);
             overflow: hidden;
             animation: fadeInUp .45s ease both;
-            max-width: 1140px;
-            margin: 0 auto;
+            max-width: none;
+            margin: 1rem;
         }
 
         .content-card:hover {
-            transform: translateY(-3px);
+            transform: none;
         }
 
         .content-card .card-body {
@@ -130,7 +177,7 @@
         .content-header {
             border-left: 4px solid var(--brand-gold);
             padding: 1.35rem 1.5rem;
-            background: #fff;
+            background: #fffdf8;
             border-radius: 1rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 10px 30px rgba(44, 62, 80, 0.04);
@@ -158,7 +205,11 @@
         .table-modern {
             border-collapse: separate;
             border-spacing: 0 0.75rem;
-            min-width: 100%;
+            min-width: 940px;
+        }
+
+        .table-modern.table-product {
+            min-width: 1120px;
         }
 
         .table-modern thead th {
@@ -172,7 +223,7 @@
         }
 
         .table-modern tbody tr {
-            background: #fff;
+            background: #fffdf8;
             border-radius: 1rem;
             box-shadow: 0 10px 25px rgba(44, 62, 80, 0.05);
         }
@@ -182,11 +233,23 @@
             background: #fff7e3;
         }
 
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 0.85rem;
+        }
+
         .table-modern td,
         .table-modern th {
             border: none;
             vertical-align: middle;
             padding: 1rem 1rem;
+            line-height: 1.35;
+        }
+
+        .table-modern .text-money,
+        .table-modern .stock-badge {
+            white-space: nowrap;
         }
 
         .form-control,
@@ -204,19 +267,20 @@
         }
 
         .btn-gold {
-            background: linear-gradient(135deg, #d6a81b 0%, #c3941e 100%);
-            color: #2C3E50;
+            background: linear-gradient(135deg, #f0b536 0%, #d99a22 100%);
+            color: #2b1a10;
             border: none;
-            box-shadow: 0 14px 30px rgba(212, 160, 23, 0.2);
-            border-radius: 1rem;
+            box-shadow: 0 14px 30px rgba(217, 154, 34, 0.24);
+            border-radius: 0.9rem;
             padding: 0.85rem 1.35rem;
+            font-weight: 700;
         }
 
         .btn-gold:hover,
         .btn-gold:focus {
-            background: linear-gradient(135deg, #c59417 0%, #a57a0d 100%);
-            color: #2C3E50;
-            box-shadow: 0 16px 36px rgba(212, 160, 23, 0.25);
+            background: linear-gradient(135deg, #e2a226 0%, #bd7f13 100%);
+            color: #2b1a10;
+            box-shadow: 0 16px 36px rgba(217, 154, 34, 0.3);
         }
 
         .btn-outline-secondary-custom {
@@ -231,11 +295,76 @@
             background: rgba(44, 62, 80, 0.06);
         }
 
+        .btn-back {
+            color: #fff;
+            background: linear-gradient(135deg, #6b3f1d 0%, #3f2412 100%);
+            border: none;
+            border-radius: 0.9rem;
+            padding: 0.85rem 1.35rem;
+            box-shadow: 0 12px 24px rgba(63, 36, 18, 0.2);
+            font-weight: 700;
+        }
+
+        .btn-back:hover,
+        .btn-back:focus {
+            color: #fff;
+            background: linear-gradient(135deg, #7a4a24 0%, #4c2c16 100%);
+        }
+
+        .table-action-cell,
+        .table-action-heading {
+            width: 190px;
+            min-width: 190px;
+        }
+
+        .table-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            width: max-content;
+            margin-inline: auto;
+        }
+
+        .table-actions form {
+            display: inline-flex;
+            margin: 0;
+        }
+
+        .table-actions .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 84px;
+            min-height: 38px;
+            padding: 0.45rem 0.75rem;
+            font-weight: 700;
+            border-radius: 0.6rem;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .table-actions .btn-outline-primary {
+            color: #1f62d0;
+            border-color: #8bb5ff;
+            background: #f7fbff;
+        }
+
+        .table-actions .btn-outline-primary:hover,
+        .table-actions .btn-outline-primary:focus {
+            color: #fff;
+            border-color: #1f62d0;
+            background: #1f62d0;
+        }
+
         .input-icon {
             position: relative;
         }
 
-        .input-icon .fa-search {
+        .input-icon .fa-search,
+        .input-icon .fa-magnifying-glass {
             position: absolute;
             left: 18px;
             top: 50%;
@@ -292,6 +421,7 @@
 
         @media (max-width: 991.98px) {
             .sidebar {
+                top: 66px;
                 transform: translateX(-110%);
                 transition: transform .3s ease;
                 box-shadow: 0 24px 55px rgba(0, 0, 0, 0.18);
@@ -303,11 +433,83 @@
 
             .main-content {
                 margin-left: 0;
-                padding: 1.5rem 1rem 2rem 1rem;
+                padding: 66px 0 0;
             }
 
             .page-navbar {
-                border-radius: 1rem;
+                border-radius: 0;
+                padding: 0.85rem 1rem;
+            }
+
+            .page-navbar .navbar-brand h5 {
+                max-width: 48vw;
+                font-size: 0.95rem;
+            }
+
+            .page-navbar .btn-outline-secondary {
+                min-width: auto;
+                font-size: 1rem;
+                padding-inline: 0.75rem;
+            }
+
+            .table-actions {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .content-card {
+                margin: 0.75rem;
+                border-radius: 0.75rem;
+            }
+
+            .content-card.p-4 {
+                padding: 1rem !important;
+            }
+
+            .content-header {
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .content-header .btn,
+            .content-header a.btn,
+            form .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .search-input {
+                height: 46px;
+                font-size: 0.92rem;
+            }
+
+            .table-modern {
+                min-width: 760px;
+            }
+
+            .table-modern.table-product {
+                min-width: 1040px;
+            }
+
+            .table-modern td,
+            .table-modern th {
+                padding: 0.85rem 0.75rem;
+            }
+
+            .app-logo-mark {
+                width: 36px;
+                font-size: 1.35rem;
+                margin-right: 0.6rem !important;
+            }
+
+            .page-navbar {
+                padding-inline: 0.75rem !important;
+            }
+
+            .page-navbar .navbar-brand h5 {
+                max-width: 42vw;
+                font-size: 0.82rem;
             }
         }
     </style>
@@ -317,29 +519,21 @@
 <body>
     <div class="d-flex">
         <aside id="appSidebar" class="sidebar">
-            <div class="d-flex align-items-center justify-content-between">
-                <a href="{{ route('kategori.index') }}" class="brand">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="bg-white rounded-3 p-2 text-dark shadow-sm">
-                            <i class="fa-solid fa-seedling fa-lg"></i>
-                        </div>
-                        <div>
-                            <h4 class="mb-1">StokApp</h4>
-                            <small>Admin Kategori</small>
-                        </div>
-                    </div>
-                </a>
+            <div class="d-flex justify-content-end p-2 d-lg-none">
                 <button class="btn btn-outline-light d-lg-none" type="button" id="sidebarClose">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <nav class="nav flex-column sidebar-nav mt-5">
+            <nav class="nav flex-column sidebar-nav">
                 <a class="nav-link {{ request()->routeIs('kategori.*') ? 'active' : '' }}" href="{{ route('kategori.index') }}">
-                    <i class="fa-solid fa-tags me-3"></i> Daftar Kategori
+                    Kategori
                 </a>
                 <a class="nav-link {{ request()->routeIs('satuan.*') ? 'active' : '' }}" href="{{ route('satuan.index') }}">
-                    <i class="fa-solid fa-ruler-simple me-3"></i> Daftar Satuan
+                    Satuan
+                </a>
+                <a class="nav-link {{ request()->routeIs('produk.*') ? 'active' : '' }}" href="{{ route('produk.index') }}">
+                    Produk
                 </a>
             </nav>
         </aside>
@@ -351,14 +545,17 @@
                         <button class="btn btn-outline-secondary d-lg-none me-3" type="button" id="sidebarToggle">
                             <i class="fa-solid fa-bars"></i>
                         </button>
+                        <div class="app-logo-mark me-3">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
                         <div class="navbar-brand mb-0">
-                            <h5 class="mb-0">@yield('title', 'Kategori')</h5>
+                            <h5 class="mb-0">Sistem Informasi Stok dan Distribusi Jamu Madura</h5>
                         </div>
                     </div>
 
                     <div class="dropdown ms-auto">
                         <button class="btn btn-outline-secondary rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-user fa-fw me-2"></i> Admin
+                            Halo, Ivan (Admin)
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user-gear me-2"></i> Profile</a></li>
@@ -388,7 +585,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-8oQ/9Ii+1B6kR+c2B4d+2N9tYHJv7VQdOl4eoTC3M1zL3J8kth4wO5RYIqlJcm3d" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const sidebar = document.getElementById('appSidebar');

@@ -9,7 +9,7 @@
             <h4 class="mb-1">Ubah Kategori</h4>
             <p class="text-muted mb-0">Perbarui data kategori produk sesuai kebutuhan.</p>
         </div>
-        <a href="{{ route('kategori.index') }}" class="btn btn-outline-secondary-custom">
+        <a href="{{ route('kategori.index') }}" class="btn btn-back">
             <i class="fa-solid fa-arrow-left me-2"></i> Kembali
         </a>
     </div>
@@ -49,7 +49,9 @@
             <button type="submit" class="btn btn-gold">
                 <i class="fa-solid fa-save me-2"></i> Simpan Perubahan
             </button>
-            <a href="{{ route('kategori.index') }}" class="btn btn-outline-secondary-custom">Batal</a>
+            <a href="{{ route('kategori.index') }}" class="btn btn-back">
+                <i class="fa-solid fa-xmark me-2"></i> Batal
+            </a>
         </div>
     </form>
 </div>
