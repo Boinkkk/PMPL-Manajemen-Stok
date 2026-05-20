@@ -14,30 +14,26 @@
         </a>
     </div>
 
-    <form method="GET" class="row align-items-center g-3 mb-4">
-        <div class="col-lg-3">
-            <select name="status" class="form-select">
-                <option value="">Semua status</option>
-                <option value="pending" {{ $status === 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="disetujui" {{ $status === 'disetujui' ? 'selected' : '' }}>Disetujui</option>
-                <option value="ditolak" {{ $status === 'ditolak' ? 'selected' : '' }}>Ditolak</option>
-            </select>
+    <div class="row align-items-center mb-4">
+        <div class="col-lg-8">
+            <form action="{{ route('retur.index') }}" method="GET" class="d-flex gap-2">
+                <div class="input-icon w-100">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari produk, distributor, atau pelapor..." class="form-control search-input">
+                </div>
+                <select name="status" class="form-select status-filter">
+                    <option value="">Semua</option>
+                    <option value="pending" {{ $status === 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="disetujui" {{ $status === 'disetujui' ? 'selected' : '' }}>Disetujui</option>
+                    <option value="ditolak" {{ $status === 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                </select>
+                <button type="submit" class="btn btn-outline-secondary-custom">Cari</button>
+            </form>
         </div>
 
-        <div class="col-lg-7">
-            <div class="input-icon">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari produk, distributor, atau pelapor..." class="form-control search-input">
-            </div>
+        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+            <span class="badge badge-total py-2 px-3">Total Retur: {{ $returs->total() }}</span>
         </div>
-
-        <div class="col-lg-2 d-grid">
-            <button type="submit" class="btn btn-outline-secondary-custom">Filter</button>
-        </div>
-    </form>
-
-    <div class="d-flex justify-content-end mb-3">
-        <span class="badge badge-total py-2 px-3">Total Retur: {{ $returs->total() }}</span>
     </div>
 
     <div class="table-responsive">

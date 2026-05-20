@@ -67,6 +67,20 @@
             font-weight: 500;
         }
 
+        .sidebar .nav-link i {
+            width: 1.25rem;
+            text-align: center;
+        }
+
+        .sidebar-section-title {
+            color: rgba(255, 255, 255, .45);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            margin: 1.25rem .9rem .6rem;
+            text-transform: uppercase;
+        }
+
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
             background: rgba(201, 154, 46, .18);
@@ -147,6 +161,17 @@
         .form-select {
             border-color: #d9dee7;
             border-radius: .55rem;
+            min-height: 38px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--sidebar-active);
+            box-shadow: 0 0 0 .2rem rgba(201, 154, 46, .12);
+        }
+
+        .status-filter {
+            max-width: 150px;
         }
 
         .badge-total {
@@ -168,6 +193,10 @@
             border-color: #edf0f4;
             padding-top: .95rem;
             padding-bottom: .95rem;
+        }
+
+        .table-modern tbody tr:hover {
+            background: #fbfcfe;
         }
 
         .detail-list dt {
@@ -216,23 +245,36 @@
             </div>
 
             <nav class="p-3 sidebar-nav">
+                <div class="sidebar-section-title">Menu Utama</div>
                 <a href="{{ Route::has('dashboard') ? route('dashboard') : '#' }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <i class="fa-solid fa-gauge-high"></i>
                     Dashboard
                 </a>
+
+                <div class="sidebar-section-title">Master Data</div>
                 <a href="{{ Route::has('produk.index') ? route('produk.index') : '#' }}" class="nav-link {{ request()->routeIs('produk.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-box"></i>
                     Data Produk
                 </a>
+                <a href="{{ Route::has('kategori.index') ? route('kategori.index') : '#' }}" class="nav-link {{ request()->routeIs('kategori.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-tags"></i>
+                    Kategori
+                </a>
+                <a href="{{ Route::has('satuan.index') ? route('satuan.index') : '#' }}" class="nav-link {{ request()->routeIs('satuan.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    Satuan
+                </a>
+
+                <div class="sidebar-section-title">Transaksi</div>
                 <a href="{{ route('retur.index') }}" class="nav-link {{ request()->routeIs('retur.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-rotate-left"></i>
                     Retur Produk
                 </a>
-                <a href="#" class="nav-link">
+                <a href="{{ Route::has('stok-masuk.index') ? route('stok-masuk.index') : '#' }}" class="nav-link {{ request()->routeIs('stok-masuk.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-truck-ramp-box"></i>
                     Stok Masuk
                 </a>
-                <a href="#" class="nav-link">
+                <a href="{{ Route::has('stok-keluar.index') ? route('stok-keluar.index') : '#' }}" class="nav-link {{ request()->routeIs('stok-keluar.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-truck-fast"></i>
                     Stok Keluar
                 </a>

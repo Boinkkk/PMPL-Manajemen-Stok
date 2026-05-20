@@ -55,7 +55,7 @@
         <div class="col-md-6">
             <label class="form-label fw-semibold">Supplier (opsional)</label>
             <select name="id_supplier" class="form-select">
-                <option value="">Gunakan supplier default</option>
+                <!-- <option value="">Gunakan supplier default</option> -->
                 @foreach($suppliers as $supplier)
                     <option value="{{ $supplier->id_supplier }}" {{ old('id_supplier') == $supplier->id_supplier ? 'selected' : '' }}>{{ $supplier->nama_supplier }}</option>
                 @endforeach
