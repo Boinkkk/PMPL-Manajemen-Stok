@@ -1,65 +1,45 @@
-@extends('layouts.app')
-
-@section('title', 'Edit Batch')
-
-@section('content')
-<div class="content-card p-4 mb-4">
-    <div class="content-header d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
-        <div>
-            <h4 class="mb-1">Edit Batch</h4>
-            <p class="text-muted mb-0">Perbarui informasi batch produk.</p>
+<x-layouts.app title="Edit Batch">
+    <section class="mx-auto flex max-w-4xl flex-col gap-5">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h2 class="text-2xl font-semibold">Edit Batch</h2>
+                <p class="text-sm text-jamu-muted">Perbarui informasi batch produk.</p>
+            </div>
+            <a href="{{ route('batch.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-center text-sm hover:bg-jamu-surface">Kembali</a>
         </div>
-        <a href="{{ route('batch.index') }}" class="btn btn-back">
-            <i class="fa-solid fa-arrow-left me-2"></i> Kembali
-        </a>
-    </div>
 
-    <form action="{{ route('batch.update', $batch) }}" method="POST" class="js-loading-form mt-4">
-        @csrf
-        @method('PUT')
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="id_produk" class="form-label">Produk</label>
-                <select name="id_produk" id="id_produk" class="form-select @error('id_produk') is-invalid @enderror">
+        <x-alert />
+
+        <form action="{{ route('batch.update', $batch) }}" method="POST" class="rounded-md border border-jamu-border bg-jamu-surface p-5">
+            @csrf
+            @method('PUT')
+
+            <div class="grid gap-4 md:grid-cols-2">
+                <x-form.select name="id_produk" label="Produk" required>
                     <option value="">Pilih Produk</option>
                     @foreach($produks as $produk)
-                        <option value="{{ $produk->id_produk }}" {{ old('id_produk', $batch->id_produk) == $produk->id_produk ? 'selected' : '' }}>
+                        <option value="{{ $produk->id_produk }}" @selected(old('id_produk', $batch->id_produk) == $produk->id_produk)>
                             {{ $produk->kode_produk }} - {{ $produk->nama_produk }}
                         </option>
                     @endforeach
-                </select>
-                @error('id_produk')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="nomor_batch" class="form-label">Nomor Batch</label>
-                <input type="text" name="nomor_batch" id="nomor_batch" class="form-control @error('nomor_batch') is-invalid @enderror" value="{{ old('nomor_batch', $batch->nomor_batch) }}">
-                @error('nomor_batch')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="tanggal_produksi" class="form-label">Tanggal Produksi</label>
-                <input type="date" name="tanggal_produksi" id="tanggal_produksi" class="form-control @error('tanggal_produksi') is-invalid @enderror" value="{{ old('tanggal_produksi', $batch->tanggal_produksi?->format('Y-m-d')) }}">
-                @error('tanggal_produksi')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="tanggal_expired" class="form-label">Tanggal Expired</label>
-                <input type="date" name="tanggal_expired" id="tanggal_expired" class="form-control @error('tanggal_expired') is-invalid @enderror" value="{{ old('tanggal_expired', $batch->tanggal_expired->format('Y-m-d')) }}">
-                @error('tanggal_expired')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-12 mb-3">
-                <label for="keterangan" class="form-label">Keterangan</label>
-                <textarea name="keterangan" id="keterangan" class="form-control @error('keterangan') is-invalid @enderror" rows="4">{{ old('keterangan', $batch->keterangan) }}</textarea>
-                @error('keterangan')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-        </div>
+                </x-form.select>
 
-        <div class="d-flex justify-content-end gap-2">
-            <a href="{{ route('batch.index') }}" class="btn btn-back">
-                <i class="fa-solid fa-xmark me-2"></i> Batal
-            </a>
-            <button type="submit" class="btn btn-gold">
-                <i class="fa-solid fa-save me-2"></i> Perbarui
-            </button>
-        </div>
-    </form>
-</div>
-@endsection
+                <x-form.input name="nomor_batch" label="Nomor Batch" :value="$batch->nomor_batch" required />
+
+                <x-form.input name="tanggal_produksi" label="Tanggal Produksi" type="date" :value="$batch->tanggal_produksi?->format('Y-m-d')" />
+                <x-form.input name="tanggal_expired" label="Tanggal Expired" type="date" :value="$batch->tanggal_expired?->format('Y-m-d')" required />
+
+                <label class="flex flex-col gap-1 text-sm md:col-span-2">
+                    <span class="font-medium text-jamu-text">Keterangan</span>
+                    <textarea name="keterangan" rows="4" class="rounded-md border-jamu-border bg-white px-3 py-2 text-sm shadow-sm focus:border-jamu-secondary focus:ring-jamu-secondary">{{ old('keterangan', $batch->keterangan) }}</textarea>
+                    <x-form.error name="keterangan" />
+                </label>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                <button type="submit" class="rounded-md bg-jamu-secondary px-4 py-2 text-sm font-semibold text-jamu-primary-dark hover:bg-jamu-secondary-light">Perbarui Batch</button>
+                <a href="{{ route('batch.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-center text-sm hover:bg-jamu-bg">Batal</a>
+            </div>
+        </form>
+    </section>
+</x-layouts.app>

@@ -1,46 +1,27 @@
-@extends('layouts.app')
-
-@section('title', 'Tambah Satuan')
-
-@section('content')
-<div class="content-card p-4">
-    <div class="content-header d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-4">
-        <div>
-            <h4 class="mb-1">Tambah Satuan Baru</h4>
-            <p class="text-muted mb-0">Isi detail satuan untuk menambah daftar satuan yang tersedia.</p>
-        </div>
-        <a href="{{ route('satuan.index') }}" class="btn btn-back">
-            <i class="fa-solid fa-arrow-left me-2"></i> Kembali
-        </a>
-    </div>
-
-    <form action="{{ route('satuan.store') }}" method="POST" class="js-loading-form">
-        @csrf
-
-        <div class="mb-4">
-            <label for="nama_satuan" class="form-label">Nama Satuan</label>
-            <input type="text" name="nama_satuan" id="nama_satuan" class="form-control @error('nama_satuan') is-invalid @enderror" value="{{ old('nama_satuan') }}" placeholder="Masukkan nama satuan">
-            @error('nama_satuan')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+<x-layouts.app title="Tambah Satuan">
+    <section class="mx-auto flex max-w-3xl flex-col gap-5">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h2 class="text-2xl font-semibold">Tambah Satuan Baru</h2>
+                <p class="text-sm text-jamu-muted">Isi detail satuan untuk menambah daftar satuan yang tersedia.</p>
+            </div>
+            <a href="{{ route('satuan.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-center text-sm hover:bg-jamu-surface">Kembali</a>
         </div>
 
-        <div class="mb-4">
-            <label for="singkatan" class="form-label">Singkatan</label>
-            <input type="text" name="singkatan" id="singkatan" class="form-control @error('singkatan') is-invalid @enderror" value="{{ old('singkatan') }}" placeholder="Masukkan singkatan satuan">
-            @error('singkatan')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
+        <x-alert />
 
-        <div class="d-flex flex-column flex-sm-row gap-3">
-            <button type="submit" class="btn btn-gold">
-                <i class="fa-solid fa-save me-2"></i> Simpan Satuan
-            </button>
-            <a href="{{ route('satuan.index') }}" class="btn btn-back">
-                <i class="fa-solid fa-xmark me-2"></i> Batal
-            </a>
-        </div>
-    </form>
-</div>
-@endsection
+        <form action="{{ route('satuan.store') }}" method="POST" class="rounded-md border border-jamu-border bg-jamu-surface p-5">
+            @csrf
+
+            <div class="grid gap-4 md:grid-cols-2">
+                <x-form.input name="nama_satuan" label="Nama Satuan" placeholder="Masukkan nama satuan" required />
+                <x-form.input name="singkatan" label="Singkatan" placeholder="Contoh: pcs, botol, dus" required />
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                <button type="submit" class="rounded-md bg-jamu-secondary px-4 py-2 text-sm font-semibold text-jamu-primary-dark hover:bg-jamu-secondary-light">Simpan Satuan</button>
+                <a href="{{ route('satuan.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-center text-sm hover:bg-jamu-bg">Batal</a>
+            </div>
+        </form>
+    </section>
+</x-layouts.app>

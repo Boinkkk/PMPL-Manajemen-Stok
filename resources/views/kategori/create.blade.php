@@ -1,57 +1,32 @@
-@extends('layouts.app')
-
-@section('title', 'Tambah Kategori')
-
-@section('content')
-<div class="content-card p-4">
-    <div class="content-header d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-4">
-        <div>
-            <h4 class="mb-1">Tambah Kategori Baru</h4>
-            <p class="text-muted mb-0">Isi detail kategori untuk memudahkan pengelolaan stok.</p>
-        </div>
-        <a href="{{ route('kategori.index') }}" class="btn btn-back">
-            <i class="fa-solid fa-arrow-left me-2"></i> Kembali
-        </a>
-    </div>
-
-    @if($errors->any())
-        <div class="alert alert-danger alert-modern mb-4">
-            <h6 class="fw-semibold mb-3">Periksa kembali form:</h6>
-            <ul class="mb-0 ps-3">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form action="{{ route('kategori.store') }}" method="POST" class="js-loading-form">
-        @csrf
-
-        <div class="mb-4">
-            <label for="nama_kategori" class="form-label">Nama Kategori</label>
-            <input type="text" name="nama_kategori" id="nama_kategori" class="form-control @error('nama_kategori') is-invalid @enderror" value="{{ old('nama_kategori') }}" placeholder="Masukkan nama kategori">
-            @error('nama_kategori')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+<x-layouts.app title="Tambah Kategori">
+    <section class="mx-auto flex max-w-3xl flex-col gap-5">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h2 class="text-2xl font-semibold">Tambah Kategori Baru</h2>
+                <p class="text-sm text-jamu-muted">Isi detail kategori untuk memudahkan pengelolaan stok.</p>
+            </div>
+            <a href="{{ route('kategori.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-center text-sm hover:bg-jamu-surface">Kembali</a>
         </div>
 
-        <div class="mb-4">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea name="deskripsi" id="deskripsi" rows="5" class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi kategori (opsional)">{{ old('deskripsi') }}</textarea>
-            @error('deskripsi')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
+        <x-alert />
 
-        <div class="d-flex flex-column flex-sm-row gap-3">
-            <button type="submit" class="btn btn-gold">
-                <i class="fa-solid fa-save me-2"></i> Simpan Kategori
-            </button>
-            <a href="{{ route('kategori.index') }}" class="btn btn-back">
-                <i class="fa-solid fa-xmark me-2"></i> Batal
-            </a>
-        </div>
-    </form>
-</div>
-@endsection
+        <form action="{{ route('kategori.store') }}" method="POST" class="rounded-md border border-jamu-border bg-jamu-surface p-5">
+            @csrf
+
+            <div class="grid gap-4">
+                <x-form.input name="nama_kategori" label="Nama Kategori" placeholder="Masukkan nama kategori" required />
+
+                <label class="flex flex-col gap-1 text-sm">
+                    <span class="font-medium text-jamu-text">Deskripsi</span>
+                    <textarea name="deskripsi" rows="5" class="rounded-md border-jamu-border bg-white px-3 py-2 text-sm shadow-sm focus:border-jamu-secondary focus:ring-jamu-secondary" placeholder="Deskripsi kategori (opsional)">{{ old('deskripsi') }}</textarea>
+                    <x-form.error name="deskripsi" />
+                </label>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                <button type="submit" class="rounded-md bg-jamu-secondary px-4 py-2 text-sm font-semibold text-jamu-primary-dark hover:bg-jamu-secondary-light">Simpan Kategori</button>
+                <a href="{{ route('kategori.index') }}" class="rounded-md border border-jamu-border px-4 py-2 text-center text-sm hover:bg-jamu-bg">Batal</a>
+            </div>
+        </form>
+    </section>
+</x-layouts.app>
