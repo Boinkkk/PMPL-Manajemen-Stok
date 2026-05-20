@@ -16,12 +16,11 @@
 
     <div class="row align-items-center mb-4">
         <div class="col-lg-8">
-            <form action="{{ route('satuan.index') }}" method="GET" class="d-flex gap-2">
+            <form action="{{ route('satuan.index') }}" method="GET">
                 <div class="input-icon w-100">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" name="search" class="form-control search-input" placeholder="Cari nama satuan atau singkatan..." value="{{ old('search', $search) }}">
                 </div>
-                <button type="submit" class="btn btn-outline-secondary-custom">Cari</button>
             </form>
         </div>
         <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
@@ -52,7 +51,7 @@
                                 <a href="{{ route('satuan.edit', $satuan) }}" class="btn btn-sm btn-outline-primary">
                                     <i class="fa-solid fa-pencil me-1"></i> Edit
                                 </a>
-                                <form action="{{ route('satuan.destroy', $satuan) }}" method="POST" class="m-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus satuan ini?');">
+                                <form action="{{ route('satuan.destroy', $satuan) }}" method="POST" class="m-0 js-delete-form" data-delete-message="Apakah Anda yakin ingin menghapus satuan {{ $satuan->nama_satuan }}?">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">

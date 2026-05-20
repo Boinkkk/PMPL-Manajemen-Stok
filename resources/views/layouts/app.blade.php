@@ -377,19 +377,156 @@
             padding-left: 3.6rem;
         }
 
+        .toast-stack {
+            position: fixed;
+            top: 82px;
+            right: 1.25rem;
+            z-index: 1080;
+            display: grid;
+            gap: 0.75rem;
+            width: min(420px, calc(100vw - 2rem));
+        }
+
         .alert-modern {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            min-height: 64px;
+            margin: 0;
+            padding: 1rem 3.2rem 1rem 1rem;
+            border: 1px solid transparent;
             border-radius: 1rem;
-            box-shadow: 0 18px 30px rgba(44, 62, 80, 0.06);
+            color: #2b1a10;
+            background: #fffdf8;
+            box-shadow: 0 18px 42px rgba(63, 36, 18, 0.16);
+        }
+
+        .alert-modern.alert-success {
+            border-color: rgba(47, 125, 92, 0.22);
+            background: linear-gradient(135deg, #f5fff8 0%, #ddf3e8 100%);
+        }
+
+        .alert-modern.alert-danger {
+            border-color: rgba(180, 47, 47, 0.2);
+            background: linear-gradient(135deg, #fff7f5 0%, #fde3dd 100%);
+        }
+
+        .alert-modern .alert-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            margin-top: -0.1rem;
+            border-radius: 999px;
+            flex: 0 0 28px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .alert-modern.alert-success .alert-icon {
+            background: #2f7d5c;
+        }
+
+        .alert-modern.alert-danger .alert-icon {
+            background: #c43d32;
+        }
+
+        .alert-modern .alert-message {
+            display: block;
+            padding-top: 0.08rem;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .alert-modern .btn-close {
+            padding: 1.25rem;
+            opacity: 0.55;
+        }
+
+        .alert-modern .btn-close:hover,
+        .alert-modern .btn-close:focus {
+            opacity: 0.9;
         }
 
         .modal-content {
+            border: 1px solid rgba(229, 216, 197, 0.9);
             border-radius: 1.2rem;
             overflow: hidden;
+            background: #fffdf8;
+            box-shadow: 0 24px 70px rgba(43, 26, 16, 0.28);
         }
 
         .modal-header,
         .modal-footer {
             border: none;
+        }
+
+        .delete-modal .modal-dialog {
+            max-width: 430px;
+        }
+
+        .delete-modal .modal-content {
+            border-radius: 1.25rem;
+        }
+
+        .delete-modal .modal-body {
+            padding: 2rem 2rem 1.25rem;
+        }
+
+        .delete-modal-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 58px;
+            height: 58px;
+            border-radius: 999px;
+            color: #fff;
+            background: linear-gradient(135deg, #d94f3d 0%, #a72f25 100%);
+            box-shadow: 0 14px 28px rgba(167, 47, 37, 0.24);
+            font-size: 1.35rem;
+        }
+
+        .delete-modal-title {
+            color: #2b1a10;
+            font-weight: 800;
+        }
+
+        .delete-modal-message {
+            color: #7a6a5c;
+            line-height: 1.55;
+        }
+
+        .btn-delete-confirm {
+            color: #fff;
+            background: linear-gradient(135deg, #d94f3d 0%, #a72f25 100%);
+            border: none;
+            border-radius: 0.85rem;
+            padding: 0.78rem 1.25rem;
+            font-weight: 800;
+            box-shadow: 0 12px 24px rgba(167, 47, 37, 0.22);
+        }
+
+        .btn-delete-confirm:hover,
+        .btn-delete-confirm:focus {
+            color: #fff;
+            background: linear-gradient(135deg, #c94131 0%, #8f271f 100%);
+        }
+
+        .btn-cancel-delete {
+            color: #2b1a10;
+            background: #f6d78b;
+            border: 1px solid #e5c166;
+            border-radius: 0.85rem;
+            padding: 0.78rem 1.25rem;
+            font-weight: 800;
+        }
+
+        .btn-cancel-delete:hover,
+        .btn-cancel-delete:focus {
+            color: #2b1a10;
+            background: #efc45e;
+            border-color: #d99a22;
         }
 
         .btn-sm-square {
@@ -458,6 +595,13 @@
         }
 
         @media (max-width: 575.98px) {
+            .toast-stack {
+                top: 76px;
+                right: 0.75rem;
+                left: 0.75rem;
+                width: auto;
+            }
+
             .content-card {
                 margin: 0.75rem;
                 border-radius: 0.75rem;
@@ -477,6 +621,14 @@
             form .btn {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .delete-modal .modal-dialog {
+                margin-inline: 0.75rem;
+            }
+
+            .delete-modal .modal-body {
+                padding: 1.4rem 1.2rem 1rem;
             }
 
             .search-input {
@@ -566,22 +718,54 @@
             </nav>
 
             <main>
-                @if(session('success'))
-                    <div class="alert alert-success alert-modern alert-dismissible fade show" role="alert">
-                        <i class="fa-solid fa-circle-check me-2"></i> {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+                @if(session('success') || session('error'))
+                    <div class="toast-stack">
+                        @if(session('success'))
+                            <div class="alert alert-success alert-modern alert-dismissible fade show" role="alert">
+                                <span class="alert-icon">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                                <span class="alert-message">{{ session('success') }}</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
 
-                @if(session('error'))
-                    <div class="alert alert-danger alert-modern alert-dismissible fade show" role="alert">
-                        <i class="fa-solid fa-triangle-exclamation me-2"></i> {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-modern alert-dismissible fade show" role="alert">
+                                <span class="alert-icon">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                </span>
+                                <span class="alert-message">{{ session('error') }}</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                     </div>
                 @endif
 
                 @yield('content')
             </main>
+        </div>
+    </div>
+
+    <div class="modal fade delete-modal" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="delete-modal-icon mb-3">
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                    <h5 class="delete-modal-title mb-2" id="deleteConfirmModalLabel">Hapus Data?</h5>
+                    <p class="delete-modal-message mb-0" id="deleteConfirmMessage">Apakah Anda yakin ingin menghapus data ini?</p>
+                </div>
+                <div class="modal-footer justify-content-center gap-2 px-4 pb-4 pt-0">
+                    <button type="button" class="btn btn-cancel-delete" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-2"></i> Batal
+                    </button>
+                    <button type="button" class="btn btn-delete-confirm" id="deleteConfirmButton">
+                        <i class="fa-solid fa-trash me-2"></i> Hapus
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -591,6 +775,10 @@
             const sidebar = document.getElementById('appSidebar');
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebarClose = document.getElementById('sidebarClose');
+            const deleteConfirmModal = document.getElementById('deleteConfirmModal');
+            const deleteConfirmMessage = document.getElementById('deleteConfirmMessage');
+            const deleteConfirmButton = document.getElementById('deleteConfirmButton');
+            let pendingDeleteForm = null;
 
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', function () {
@@ -615,7 +803,41 @@
                 });
             });
 
-            // Delete modal removed for satuan; per-row inline delete forms are used instead.
+            document.querySelectorAll('.toast-stack .alert').forEach(function (alert) {
+                setTimeout(function () {
+                    bootstrap.Alert.getOrCreateInstance(alert).close();
+                }, 4200);
+            });
+
+            if (deleteConfirmModal && deleteConfirmMessage && deleteConfirmButton) {
+                const deleteModal = new bootstrap.Modal(deleteConfirmModal);
+
+                document.querySelectorAll('.js-delete-form').forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault();
+
+                        pendingDeleteForm = form;
+                        deleteConfirmMessage.textContent = form.dataset.deleteMessage || 'Apakah Anda yakin ingin menghapus data ini?';
+                        deleteModal.show();
+                    });
+                });
+
+                deleteConfirmButton.addEventListener('click', function () {
+                    if (!pendingDeleteForm) {
+                        return;
+                    }
+
+                    deleteConfirmButton.disabled = true;
+                    deleteConfirmButton.innerHTML = '<span class="spinner-border spinner-border-sm loading-spinner me-2" role="status" aria-hidden="true"></span>Menghapus...';
+                    pendingDeleteForm.submit();
+                });
+
+                deleteConfirmModal.addEventListener('hidden.bs.modal', function () {
+                    pendingDeleteForm = null;
+                    deleteConfirmButton.disabled = false;
+                    deleteConfirmButton.innerHTML = '<i class="fa-solid fa-trash me-2"></i> Hapus';
+                });
+            }
         });
     </script>
     @stack('scripts')

@@ -16,12 +16,11 @@
 
     <div class="row align-items-center mb-4">
         <div class="col-lg-8">
-            <form action="{{ route('kategori.index') }}" method="GET" class="d-flex gap-2">
+            <form action="{{ route('kategori.index') }}" method="GET">
                 <div class="input-icon w-100">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" name="search" class="form-control search-input" placeholder="Cari kategori..." value="{{ old('search', $search) }}">
                 </div>
-                <button type="submit" class="btn btn-outline-secondary-custom">Cari</button>
             </form>
         </div>
         <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
@@ -50,7 +49,7 @@
                                 <a href="{{ route('kategori.edit', $kategori) }}" class="btn btn-sm btn-outline-primary">
                                     <i class="fa-solid fa-pencil me-1"></i> Edit
                                 </a>
-                                <form action="{{ route('kategori.destroy', $kategori) }}" method="POST" class="m-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
+                                <form action="{{ route('kategori.destroy', $kategori) }}" method="POST" class="m-0 js-delete-form" data-delete-message="Apakah Anda yakin ingin menghapus kategori {{ $kategori->nama_kategori }}?">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">
