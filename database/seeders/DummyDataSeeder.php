@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use RuntimeException;
 
 class DummyDataSeeder extends Seeder
 {
@@ -12,6 +13,10 @@ class DummyDataSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
+        DB::table('retur_produk')->truncate();
+        DB::table('audit_trail')->truncate();
+        DB::table('notifikasi')->truncate();
+        DB::table('data_eoq')->truncate();
         DB::table('detail_stok_keluar')->truncate();
         DB::table('stok_keluar')->truncate();
         DB::table('detail_order')->truncate();
@@ -4036,5 +4041,26 @@ class DummyDataSeeder extends Seeder
                 'eoq' => 1901,
             ],
         ]);
+
+        $this->insertFromSqlDump('notifikasi');
+        $this->insertFromSqlDump('audit_trail');
+    }
+
+    private function insertFromSqlDump(string $table): void
+    {
+        $sqlDumpPath = base_path('db_jamu_madura.sql');
+        $sqlDump = file_get_contents($sqlDumpPath);
+
+        if ($sqlDump === false) {
+            throw new RuntimeException("Unable to read SQL dump at [{$sqlDumpPath}].");
+        }
+
+        $tableName = preg_quote($table, '/');
+
+        if (! preg_match("/INSERT INTO `{$tableName}`[\\s\\S]*?;\\s*/", $sqlDump, $matches)) {
+            return;
+        }
+
+        DB::unprepared($matches[0]);
     }
 }
