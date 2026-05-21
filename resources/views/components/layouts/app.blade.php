@@ -45,26 +45,45 @@
                 <nav class="flex-1 space-y-6 overflow-y-auto px-4 py-5">
                     <div class="space-y-1">
                         <p class="px-3 text-xs font-semibold uppercase tracking-wide text-jamu-secondary-light/80">Utama</p>
-                        <a href="{{ route('dashboard') }}" class="{{ $linkClass }} {{ request()->routeIs('dashboard*') ? $activeClass : $inactiveClass }}">
-                            <span class="w-5 text-center">D</span> Dashboard
-                        </a>
+                        
                         <a href="{{ route('monitoring.index') }}" class="{{ $linkClass }} {{ request()->routeIs('monitoring*') || request()->routeIs('notifikasi*') ? $activeClass : $inactiveClass }}">
                             <span class="w-5 text-center">M</span> Monitoring
                         </a>
                         @if ($isAdmin || $isManager)
-                            <a href="{{ route('laporan.index') }}" class="{{ $linkClass }} {{ request()->routeIs('laporan*') ? $activeClass : $inactiveClass }}">
+                            <!-- <a href="{{ route('laporan.index') }}" class="{{ $linkClass }} {{ request()->routeIs('laporan*') ? $activeClass : $inactiveClass }}">
                                 <span class="w-5 text-center">L</span> Laporan
-                            </a>
+                            </a> -->
+                            <a href="{{ route('dashboard') }}" class="{{ $linkClass }} {{ request()->routeIs('dashboard*') ? $activeClass : $inactiveClass }}">
+                            <span class="w-5 text-center">D</span> Dashboard
+                        </a>
                         @elseif ($isStaff)
-                            <a href="{{ route('laporan.show', 'stok-kedaluwarsa') }}" class="{{ $linkClass }} {{ request()->routeIs('laporan*') ? $activeClass : $inactiveClass }}">
+                            <!-- <a href="{{ route('laporan.show', 'stok-kedaluwarsa') }}" class="{{ $linkClass }} {{ request()->routeIs('laporan*') ? $activeClass : $inactiveClass }}">
                                 <span class="w-5 text-center">L</span> Kedaluwarsa
-                            </a>
+                            </a> -->
                         @endif
                     </div>
 
                     <div class="space-y-1">
                         <p class="px-3 text-xs font-semibold uppercase tracking-wide text-jamu-secondary-light/80">Operasional</p>
-                        <a href="{{ route('order-distribusi.index') }}" class="{{ $linkClass }} {{ request()->routeIs('order-distribusi*') ? $activeClass : $inactiveClass }}">
+                        
+                        
+                        <a href="{{ route('retur.index') }}" class="{{ $linkClass }} {{ request()->routeIs('retur*') ? $activeClass : $inactiveClass }}">
+                            <span class="w-5 text-center">R</span> Retur Produk
+                        </a>
+                    </div>
+
+                    <div class="space-y-1">
+                        
+                        @if ($isAdmin || $isStaff)
+                        <p class="px-3 text-xs font-semibold uppercase tracking-wide text-jamu-secondary-light/80">Master Data</p>
+                        
+                            <a href="{{ route('supplier.index') }}" class="{{ $linkClass }} {{ request()->routeIs('supplier*') ? $activeClass : $inactiveClass }}">
+                                <span class="w-5 text-center">S</span> Supplier
+                            </a>
+                            <a href="{{ route('distributor.index') }}" class="{{ $linkClass }} {{ request()->routeIs('distributor*') ? $activeClass : $inactiveClass }}">
+                                <span class="w-5 text-center">D</span> Distributor
+                            </a>
+                            <a href="{{ route('order-distribusi.index') }}" class="{{ $linkClass }} {{ request()->routeIs('order-distribusi*') ? $activeClass : $inactiveClass }}">
                             <span class="w-5 text-center">O</span> Order Distribusi
                         </a>
                         <a href="{{ route('stok-masuk.index') }}" class="{{ $linkClass }} {{ request()->routeIs('stok-masuk*') ? $activeClass : $inactiveClass }}">
@@ -73,23 +92,9 @@
                         <a href="{{ route('stok-keluar.index') }}" class="{{ $linkClass }} {{ request()->routeIs('stok-keluar*') ? $activeClass : $inactiveClass }}">
                             <span class="w-5 text-center">SK</span> Stok Keluar
                         </a>
-                        <a href="{{ route('retur.index') }}" class="{{ $linkClass }} {{ request()->routeIs('retur*') ? $activeClass : $inactiveClass }}">
-                            <span class="w-5 text-center">R</span> Retur Produk
-                        </a>
-                    </div>
-
-                    <div class="space-y-1">
-                        <p class="px-3 text-xs font-semibold uppercase tracking-wide text-jamu-secondary-light/80">Master Data</p>
                         <a href="{{ route('produk.index') }}" class="{{ $linkClass }} {{ request()->routeIs('produk*') || request()->routeIs('kategori*') || request()->routeIs('satuan*') || request()->routeIs('batch*') ? $activeClass : $inactiveClass }}">
                             <span class="w-5 text-center">P</span> Data Produk
                         </a>
-                        @if ($isAdmin || $isStaff)
-                            <a href="{{ route('supplier.index') }}" class="{{ $linkClass }} {{ request()->routeIs('supplier*') ? $activeClass : $inactiveClass }}">
-                                <span class="w-5 text-center">S</span> Supplier
-                            </a>
-                            <a href="{{ route('distributor.index') }}" class="{{ $linkClass }} {{ request()->routeIs('distributor*') ? $activeClass : $inactiveClass }}">
-                                <span class="w-5 text-center">D</span> Distributor
-                            </a>
                         @endif
                         @if ($isAdmin)
                             <a href="{{ route('pengguna.index') }}" class="{{ $linkClass }} {{ request()->routeIs('pengguna*') ? $activeClass : $inactiveClass }}">
@@ -98,7 +103,7 @@
                         @endif
                     </div>
 
-                    @if ($isAdmin || $isManager || $isStaff)
+                    @if ($isAdmin || $isManager)
                         <div class="space-y-1">
                             <p class="px-3 text-xs font-semibold uppercase tracking-wide text-jamu-secondary-light/80">Sistem</p>
                             <a href="{{ route('audit.index') }}" class="{{ $linkClass }} {{ request()->routeIs('audit*') ? $activeClass : $inactiveClass }}">
