@@ -16,8 +16,8 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_order')->primary();
-            $table->bigInteger('id_distributor')->nullable();
+            $table->id('id_order')->primary();
+            $table->foreignId('id_distributor')->nullable();
             $table->bigInteger('id_pengguna')->nullable();
             $table->string('nomor_order', 30);
             $table->date('tanggal_order');

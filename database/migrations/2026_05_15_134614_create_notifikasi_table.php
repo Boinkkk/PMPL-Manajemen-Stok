@@ -17,8 +17,8 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_notifikasi', true);
-            $table->bigInteger('id_produk')->nullable();
+            $table->id('id_notifikasi');
+            $table->foreignId('id_produk')->nullable();
             $table->bigInteger('id_pengguna')->nullable();
             $table->enum('jenis', ['stok_minimum', 'stok_habis', 'kedaluwarsa']);
             $table->string('pesan', 255);

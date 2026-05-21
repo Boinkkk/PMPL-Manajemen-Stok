@@ -36,6 +36,14 @@ class DetailOrder extends Model
         ];
     }
 
+    /**
+     * Hitung subtotal detail dari jumlah diminta dan harga satuan.
+     */
+    public function hitungSubtotal(): float
+    {
+        return (float) $this->jumlah_diminta * (float) $this->harga_satuan;
+    }
+
     public function orderDistribusi(): BelongsTo
     {
         return $this->belongsTo(OrderDistribusi::class, 'id_order', 'id_order');

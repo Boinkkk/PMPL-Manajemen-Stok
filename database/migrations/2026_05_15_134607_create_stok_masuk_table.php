@@ -16,8 +16,8 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_stok_masuk')->primary();
-            $table->bigInteger('id_supplier')->nullable();
+            $table->id('id_stok_masuk')->primary();
+            $table->foreignId('id_supplier')->nullable();
             $table->bigInteger('id_pengguna')->nullable();
             $table->string('nomor_transaksi', 30);
             $table->date('tanggal_masuk');

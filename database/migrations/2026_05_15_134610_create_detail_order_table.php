@@ -17,9 +17,9 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_detail_order', true);
-            $table->bigInteger('id_order')->nullable();
-            $table->bigInteger('id_produk')->nullable();
+            $table->id('id_detail_order');
+            $table->foreignId('id_order')->nullable();
+            $table->foreignId('id_produk')->nullable();
             $table->integer('jumlah_diminta');
             $table->integer('jumlah_disetujui')->nullable()->default(0);
             $table->decimal('harga_satuan', 15, 2)->default(0);

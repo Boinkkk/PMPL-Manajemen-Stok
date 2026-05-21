@@ -16,7 +16,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
 
-            $table->bigInteger('id_distributor')->primary();
+            $table->id('id_distributor')->primary();
             $table->string('kode_distributor', 20);
             $table->string('nama_distributor', 150);
             $table->text('alamat')->nullable();

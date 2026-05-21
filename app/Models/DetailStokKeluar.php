@@ -36,16 +36,25 @@ class DetailStokKeluar extends Model
         ];
     }
 
+    /**
+     * Header transaksi stok keluar.
+     */
     public function stokKeluar(): BelongsTo
     {
         return $this->belongsTo(StokKeluar::class, 'id_stok_keluar', 'id_stok_keluar');
     }
 
+    /**
+     * Produk yang keluar.
+     */
     public function produk(): BelongsTo
     {
         return $this->belongsTo(Produk::class, 'id_produk', 'id_produk');
     }
 
+    /**
+     * Batch produk yang keluar.
+     */
     public function batch(): BelongsTo
     {
         return $this->belongsTo(Batch::class, 'id_batch', 'id_batch');
