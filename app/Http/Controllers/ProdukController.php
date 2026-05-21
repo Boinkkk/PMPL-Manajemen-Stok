@@ -133,7 +133,17 @@ class ProdukController extends Controller
 
     public function show($id_produk)
     {
-        $produk = Produk::with(['kategori', 'satuan'])->findOrFail($id_produk);
+        $produk = Produk::with([
+            'kategori',
+            'satuan',
+            'batches' => fn ($query) => $query
+                ->select('batch.*')
+                ->selectRaw(
+                    'COALESCE((SELECT SUM(dsm.jumlah) FROM detail_stok_masuk dsm WHERE dsm.id_batch = batch.id_batch), 0)
+                    - COALESCE((SELECT SUM(dsk.jumlah) FROM detail_stok_keluar dsk WHERE dsk.id_batch = batch.id_batch), 0) as stok_batch'
+                )
+                ->orderBy('tanggal_expired', 'asc'),
+        ])->findOrFail($id_produk);
 
         return view('produk.show', compact('produk'));
     }
